@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <meta name="theme-color" content="#7952b3">
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <link href="css/sign.css" rel="stylesheet">
+    <title>Sign in</title>
+</head>
+<body class="text-center">
+
+<main class="form-signin">
+    <form action="#" th:action="@{/sign-up}" th:object="${signUpForm}" method="post">
+        <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+
+        <div class="form-floating">
+            <input type="text" class="form-control" th:field="*{name}" id="floatingName" name="name" placeholder="Full name">
+            <label for="floatingName">Full name</label>
+            <span class="has-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+        </div>
+        <div class="form-floating">
+            <input type="email" class="form-control" th:field="*{email}" id="floatingEmail" name="email" placeholder="name@example.com">
+            <label for="floatingEmail">Email address</label>
+            <span class="has-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        </div>
+        <div class="form-floating">
+            <input type="password" class="form-control" th:field="*{password}" name="password" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+            <span class="has-error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+        </div>
+
+        <button class="w-100 btn btn-lg btn-primary" type="submit">Sign up</button>
+    </form>
+</main>
+
+</body>
+</html>

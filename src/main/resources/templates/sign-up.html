@@ -31,14 +31,14 @@
         <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
 
         <div class="form-floating">
-            <input type="text" class="form-control" th:field="*{name}" id="floatingName" name="name" placeholder="Full name">
-            <label for="floatingName">Full name</label>
-            <span class="has-error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-        </div>
-        <div class="form-floating">
             <input type="email" class="form-control" th:field="*{email}" id="floatingEmail" name="email" placeholder="name@example.com">
             <label for="floatingEmail">Email address</label>
             <span class="has-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+        </div>
+        <div class="form-floating">
+            <input type="text" class="form-control" th:field="*{inviteToken}" id="floatingName" name="inviteToken" placeholder="Full name">
+            <label for="floatingName">Invite token</label>
+            <span class="has-error" th:if="${#fields.hasErrors('inviteToken')}" th:errors="*{inviteToken}"></span>
         </div>
         <div class="form-floating">
             <input type="password" class="form-control" th:field="*{password}" name="password" id="floatingPassword" placeholder="Password">

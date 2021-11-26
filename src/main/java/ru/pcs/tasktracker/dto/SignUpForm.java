@@ -24,7 +24,7 @@ public class SignUpForm {
     private String email;
 
     @NotBlank
-    private String name;
+    private String inviteToken;
 
     @NotBlank
     @ValidPassword

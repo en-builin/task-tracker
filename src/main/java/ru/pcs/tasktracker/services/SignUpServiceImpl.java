@@ -1,13 +1,12 @@
 package ru.pcs.tasktracker.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.pcs.tasktracker.dto.SignUpForm;
 import ru.pcs.tasktracker.model.User;
 import ru.pcs.tasktracker.repositories.UsersRepository;
-
-import java.util.Locale;
 
 /**
  * @author Evgeniy Builin (en.builin@gmail.com)
@@ -27,13 +26,18 @@ public class SignUpServiceImpl implements SignUpService {
 
     @Override
     public void signUp(SignUpForm form) {
-        User user = User.builder()
-                .name(form.getName())
-                .email(form.getEmail().toLowerCase(Locale.ROOT))
-                .password(passwordEncoder.encode(form.getPassword()))
-                .role(User.Role.USER)
-                .state(User.State.ACTIVE)
-                .build();
+
+        User user = usersRepository.findById(form.getEmail())
+                .orElseThrow(
+                        () -> new UsernameNotFoundException("User not found!"));
+
+        if (!user.getInviteToken().equals(form.getInviteToken())) {
+            throw new UsernameNotFoundException("Wrong invite token!");
+        }
+
+        user.setPassword(passwordEncoder.encode(form.getPassword()));
+        user.setInviteToken(null);
+        user.setState(User.State.ACTIVE);
 
 //        sendMail("<h1>Вы зарегистрированы</h1>", "Регистрация", from, user.getEmail());
 

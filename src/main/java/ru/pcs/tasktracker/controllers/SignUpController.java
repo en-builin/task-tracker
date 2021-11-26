@@ -1,7 +1,6 @@
 package ru.pcs.tasktracker.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,14 +28,10 @@ public class SignUpController {
 
     private final SignUpService signUpService;
 
-    @Value("${app.allow-sign-up:false}")
-    private Boolean allowSignUp;
-
     @GetMapping
     public String getSignUpPage(Authentication authentication, Model model) {
 
-        if (authentication != null ||
-            !allowSignUp) {
+        if (authentication != null) {
             return "redirect:/";
         }
 
@@ -46,10 +41,6 @@ public class SignUpController {
 
     @PostMapping
     public String signUp(@Valid SignUpForm form, BindingResult result, Model model) {
-
-        if (Boolean.FALSE.equals(allowSignUp)) {
-            return "redirect:/";
-        }
 
         if (result.hasErrors()) {
             model.addAttribute("signUpForm", form);

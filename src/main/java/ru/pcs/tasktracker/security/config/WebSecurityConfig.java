@@ -23,6 +23,7 @@ import javax.sql.DataSource;
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    public static final String URL_SIGN_IN = "/sign-in";
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -38,14 +39,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-//    @Autowired
-//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.inMemoryAuthentication()
-//                .withUser("user@r.ru").password("userpass").roles("USER")
-//                .and()
-//                .withUser("admin@r.ru").password("adminpass").roles("ADMIN");
-//    }
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
@@ -55,7 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                        .antMatchers("/sign-in", "/sign-up").permitAll()
+                        .antMatchers(URL_SIGN_IN, "/sign-up").permitAll()
                         .antMatchers("/css/*").permitAll()
                         .antMatchers("/js/*").permitAll()
                         //.antMatchers("/sign-in").permitAll()
@@ -67,13 +60,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .anyRequest().authenticated()
                         .and()
                 .formLogin()
-                        .loginPage("/sign-in")
-                        .loginProcessingUrl("/sign-in")
-                        .defaultSuccessUrl("/")
-                        .failureUrl("/sign-in?error=true")
+                        .loginPage(URL_SIGN_IN)
+                        .loginProcessingUrl(URL_SIGN_IN)
+                        .defaultSuccessUrl("/", true)
+                        .failureUrl(URL_SIGN_IN + "?error=true")
                         .usernameParameter("email")
                         .passwordParameter("password")
-
                         .permitAll()
                         .and()
                 .rememberMe()
@@ -85,7 +77,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .and()
                 .logout()
                         .logoutRequestMatcher(new AntPathRequestMatcher("/sign-out"))
-                        .logoutSuccessUrl("/sign-in")
+                        .logoutSuccessUrl(URL_SIGN_IN)
                         .deleteCookies("JSESSIONID")
                         .invalidateHttpSession(true)
         ;

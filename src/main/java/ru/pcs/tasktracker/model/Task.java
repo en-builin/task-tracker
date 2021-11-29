@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
  * @author Evgeniy Builin (en.builin@gmail.com)
@@ -33,4 +34,7 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "assignee_email")
     private User assignee;
+
+    private Timestamp created;
+    private Timestamp finished;
 }

@@ -1,7 +1,6 @@
 package ru.pcs.tasktracker.services;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.pcs.tasktracker.dto.SignUpForm;
@@ -24,15 +23,21 @@ public class SignUpServiceImpl implements SignUpService {
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
 
+    public class SignUpException extends RuntimeException {
+        public SignUpException(String msg) {
+            super(msg);
+        }
+    }
+
     @Override
     public void signUp(SignUpForm form) {
 
         User user = usersRepository.findById(form.getEmail())
                 .orElseThrow(
-                        () -> new UsernameNotFoundException("User not found!"));
+                        () -> new SignUpException("User not found!"));
 
-        if (!user.getInviteToken().equals(form.getInviteToken())) {
-            throw new UsernameNotFoundException("Wrong invite token!");
+        if (user.getInviteToken() == null || !user.getInviteToken().equals(form.getInviteToken())) {
+            throw new SignUpException("Wrong invite token!");
         }
 
         user.setPassword(passwordEncoder.encode(form.getPassword()));

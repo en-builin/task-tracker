@@ -25,6 +25,7 @@ public class Task {
     private Long id;
 
     private String shortDescription;
+    @Column(length = 1024)
     private String fullDescription;
 
     @ManyToOne

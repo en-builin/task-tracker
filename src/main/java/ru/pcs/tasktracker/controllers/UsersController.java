@@ -21,9 +21,9 @@ import javax.validation.Valid;
  * @author Evgeniy Builin (en.builin@gmail.com)
  * Created on 24.11.2021 in project task-tracker
  */
-@RequiredArgsConstructor()
 @Controller
 @RequestMapping("/users")
+@RequiredArgsConstructor()
 public class UsersController {
 
     private final UsersService usersService;
@@ -31,8 +31,7 @@ public class UsersController {
     @GetMapping
     public String getUsersPage(Authentication authentication, Model model) {
         model.addAttribute("inviteForm", new InviteForm());
-        // TODO как вывести полное имя пользователя?
-        model.addAttribute("currentUser", authentication.getName());
+        model.addAttribute("currentUser", usersService.getUserNameByEmail(authentication.getName()));
         model.addAttribute("users", usersService.getAllUsers());
         return "users";
     }

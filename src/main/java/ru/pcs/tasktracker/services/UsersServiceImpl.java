@@ -20,6 +20,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UsersServiceImpl implements UsersService {
 
+    public class UserNotFoundException extends RuntimeException {}
+
     private final UsersRepository usersRepository;
 
     @Override
@@ -36,8 +38,6 @@ public class UsersServiceImpl implements UsersService {
         usersRepository.save(user);
 
         // TODO send email to user with invite token
-//        if (inviteForm.getSendNotification()) {
-//        }
 
     }
 
@@ -46,5 +46,15 @@ public class UsersServiceImpl implements UsersService {
         List<UserDto> result = UserDto.from(usersRepository.findAll());
         result.sort(Comparator.comparing(UserDto::getName));
         return result;
+    }
+
+    @Override
+    public String getUserNameByEmail(String email) {
+        return usersRepository.findById(email).map(User::getName).orElseThrow(UserNotFoundException::new);
+    }
+
+    @Override
+    public User getUserByEmail(String email) {
+        return usersRepository.findById(email).orElseThrow(UserNotFoundException::new);
     }
 }

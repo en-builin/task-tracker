@@ -1,10 +1,13 @@
 package ru.pcs.tasktracker.controllers;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.pcs.tasktracker.services.TasksService;
+import ru.pcs.tasktracker.services.UsersService;
 
 /**
  * @author Evgeniy Builin (en.builin@gmail.com)
@@ -12,10 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/")
+@RequiredArgsConstructor()
 public class IndexController {
+
+    private final UsersService usersService;
+
+    private final TasksService tasksService;
+
     @GetMapping
     public String getIndexPage(Authentication authentication, Model model) {
-        model.addAttribute("currentUser", authentication.getName());
+        model.addAttribute("currentUser", usersService.getUserNameByEmail(authentication.getName()));
+        model.addAttribute("tasks", tasksService.getTasksByAssignee(authentication.getName()));
         return "index";
     }
 }

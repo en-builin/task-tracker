@@ -11,11 +11,10 @@
 
     <div th:replace="fragments/general.html :: sidebar-fr"></div>
 
-<!--    <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-light">-->
         <div class="container">
             <br>
             <div class="row">
-                <form action="#" th:action="@{/users}" th:object="${inviteForm}" method="post">
+                <form class="form-inline" action="#" th:action="@{/users}" th:object="${inviteForm}" method="post">
                     <div class="row g-4 align-items-center">
                         <div class="col-auto form-floating">
                             <h6>Invite new user</h6>
@@ -29,11 +28,12 @@
                             <span class="has-error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
                         </div>
                         <div class="col-auto">
-                            <button class="w-100 btn btn-sm btn-primary" type="submit">Invite</button>
+                            <button class="btn btn-sm btn-primary" type="submit">Invite</button>
                         </div>
+                    </div>
                 </form>
             </div>
-            <br><br>
+            <br>
             <div class="row">
                 <table id="users" class="table table-bordered" style="width: 100%">
                     <thead>
@@ -42,7 +42,9 @@
                         <th>Email</th>
                         <th>Role</th>
                         <th>State</th>
-<!--                        <th>Action</th>-->
+                        <!--/*-->
+                        <th>Action</th>
+                        <!--*/-->
                     </tr>
                     </thead>
                     <tbody>
@@ -51,16 +53,18 @@
                         <td th:text="${user.email}">john@doe.com</td>
                         <td th:text="${user.role}">USER</td>
                         <td><span th:text="${user.state}">INVITED</span> <span th:text="${user.inviteToken}">token</span></td>
-<!--                        <td>-->
-<!--                            <form action="#" th:action="@{/users}" th:object="${inviteForm}" method="POST">-->
-<!--                            <input type="hidden" name="email" th:value="${user.email}"><button class="btn btn-sm btn-danger" type="submit">Deactivate</button>-->
-<!--                            </form></td>-->
+                        <!--/*-->
+                        <td>
+                            <form action="#" th:action="@{/users}" th:object="${inviteForm}" method="POST">
+                            <input type="hidden" name="email" th:value="${user.email}"><button class="btn btn-sm btn-danger" type="submit">Deactivate</button>
+                            </form>
+                        </td>
+                        <!--*/-->
                     </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-<!--    </div>-->
 
 </main>
 

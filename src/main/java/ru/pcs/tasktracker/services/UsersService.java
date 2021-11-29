@@ -2,6 +2,7 @@ package ru.pcs.tasktracker.services;
 
 import ru.pcs.tasktracker.dto.InviteForm;
 import ru.pcs.tasktracker.dto.UserDto;
+import ru.pcs.tasktracker.model.User;
 
 import java.util.List;
 
@@ -13,4 +14,8 @@ public interface UsersService {
     void invite(InviteForm inviteForm);
 
     List<UserDto> getAllUsers();
+
+    String getUserNameByEmail(String email);
+
+    User getUserByEmail(String email);
 }

@@ -94,25 +94,29 @@
                     My tasks
                 </a>
             </li>
-            <li>
+            <li  sec:authorize="hasAuthority('ADMIN')">
                 <a th:href="@{/all-tasks}" href="#" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
                     All tasks
                 </a>
             </li>
+            <!--/*-->
             <li>
                 <a th:href="@{/projects}" href="#" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
                     Projects
                 </a>
             </li>
+            <!--*/-->
+            <!--/*-->
             <li>
                 <a th:href="@{/reports}" href="#" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
                     Reports
                 </a>
             </li>
-            <li>
+            <!--*/-->
+            <li sec:authorize="hasAuthority('ADMIN')">
                 <a th:href="@{/users}" href="#" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
                     Users
@@ -122,24 +126,23 @@
         <hr>
         <div class="dropdown">
             <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                <!--                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">-->
                 <strong th:text="${currentUser}">John Doe</strong>
             </a>
             <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                <!--                <li><a class="dropdown-item" href="#">New project...</a></li>-->
-                <!--                <li><a class="dropdown-item" href="#">Settings</a></li>-->
-                <!--                <li><a class="dropdown-item" href="#">Profile</a></li>-->
-                <!--                <li><hr class="dropdown-divider"></li>-->
+                <!--/*-->
+                <li><a class="dropdown-item" href="#">New project...</a></li>
+                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <!--*/-->
                 <li><a class="dropdown-item" th:href="@{/sign-out}" href="#">Sign out</a></li>
             </ul>
         </div>
     </div>
     <div th:fragment="sidebar-fr" class="b-example-divider"></div>
 
-    <!--    <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-light">-->
     <div class="container">
     </div>
-    <!--    </div>-->
 
 </main>
 

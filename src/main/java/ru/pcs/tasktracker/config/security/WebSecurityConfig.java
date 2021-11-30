@@ -1,4 +1,4 @@
-package ru.pcs.tasktracker.security.config;
+package ru.pcs.tasktracker.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +24,8 @@ import javax.sql.DataSource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static final String URL_SIGN_IN = "/sign-in";
+    public static final String REMEMBER_ME_KEY = "a52378957b9579d56e827ac3e4a0281f";
+
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -65,7 +67,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         .permitAll()
                         .and()
                 .rememberMe()
-                        .key("a52378957b9579d56e827ac3e4a0281f")
+                        .key(REMEMBER_ME_KEY)
                         .rememberMeParameter("remember-me")
                         .alwaysRemember(true)
                         .tokenRepository(tokenRepository())

@@ -1,4 +1,4 @@
-package ru.pcs.tasktracker.security.config;
+package ru.pcs.tasktracker.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta th:fragment="head-fr" charset="UTF-8">
-    <meta th:fragment="head-fr" name="viewport" content="width=device-width, initial-scale=1">
-    <link th:fragment="head-fr" th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
-    <meta th:fragment="head-fr" name="theme-color" content="#7952b3">
-    <style th:fragment="head-fr">
+<head th:fragment="common_header(title)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/css/bootstrap.min.css}" href="../css/bootstrap.min.css" rel="stylesheet">
+    <meta name="theme-color" content="#7952b3">
+    <style>
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -20,9 +20,10 @@
             }
         }
     </style>
-    <link th:fragment="head-fr" th:href="@{/css/sidebars.css}" href="../css/sidebars.css" rel="stylesheet">
-    <script th:fragment="head-fr" th:src="@{/js/bootstrap.bundle.min.js}" src="../js/bootstrap.bundle.min.js"></script>
-    <script th:fragment="head-fr" th:src="@{/js/sidebars.js}" src="../js/sidebars.js"></script>
+    <title th:replace="${title}">The awesome application</title>
+    <link th:href="@{/css/sidebars.css}" href="../css/sidebars.css" rel="stylesheet">
+    <script th:src="@{/js/bootstrap.bundle.min.js}" src="../js/bootstrap.bundle.min.js"></script>
+    <script th:src="@{/js/sidebars.js}" src="../js/sidebars.js"></script>
 </head>
 <body>
 
@@ -94,8 +95,8 @@
                     My tasks
                 </a>
             </li>
-            <li  sec:authorize="hasAuthority('ADMIN')">
-                <a th:href="@{/all-tasks}" href="#" class="nav-link link-dark">
+            <li>
+                <a th:href="@{/tasks}" href="#" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
                     All tasks
                 </a>

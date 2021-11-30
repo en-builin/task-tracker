@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import ru.pcs.tasktracker.model.Task;
 
 import javax.validation.constraints.NotBlank;
@@ -35,7 +36,10 @@ public class TaskDto {
     private String assigneeEmail;
     private String authorEmail;
 
+    @DateTimeFormat(pattern="dd-MM-YYYY HH:mm")
     private Timestamp created;
+
+    @DateTimeFormat(pattern="dd-MM-YYYY HH:mm")
     private Timestamp finished;
 
     public static TaskDto from(Task task) {

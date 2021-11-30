@@ -28,8 +28,13 @@ public class TasksServiceImpl implements TasksService {
 
     @Override
     public List<TaskDto> getTasksByAssignee(String email) {
-        return tasksRepository.findByAssignee_EmailOrderByCreatedAsc(email, Sort.by("created"))
+        return tasksRepository.findByAssignee_Email(email, Sort.by(Sort.Direction.DESC, "created"))
                 .stream().map(TaskDto::from).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<TaskDto> getAllTasks() {
+        return TaskDto.from(tasksRepository.findAll(Sort.by(Sort.Direction.DESC, "created")));
     }
 
     @Override

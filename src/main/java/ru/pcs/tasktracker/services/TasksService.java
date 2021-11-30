@@ -11,5 +11,7 @@ import java.util.List;
 public interface TasksService {
     List<TaskDto> getTasksByAssignee(String name);
 
+    List<TaskDto> getAllTasks();
+
     void addTask(TaskDto taskDto);
 }

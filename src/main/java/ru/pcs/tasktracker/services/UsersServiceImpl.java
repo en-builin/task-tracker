@@ -7,7 +7,6 @@ import ru.pcs.tasktracker.dto.UserDto;
 import ru.pcs.tasktracker.model.User;
 import ru.pcs.tasktracker.repositories.UsersRepository;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
@@ -43,9 +42,7 @@ public class UsersServiceImpl implements UsersService {
 
     @Override
     public List<UserDto> getAllUsers() {
-        List<UserDto> result = UserDto.from(usersRepository.findAll());
-        result.sort(Comparator.comparing(UserDto::getName));
-        return result;
+        return UserDto.from(usersRepository.findByOrderByNameAsc());
     }
 
     @Override

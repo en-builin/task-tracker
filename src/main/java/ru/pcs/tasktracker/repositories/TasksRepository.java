@@ -7,5 +7,5 @@ import ru.pcs.tasktracker.model.Task;
 import java.util.List;
 
 public interface TasksRepository extends JpaRepository<Task, Long> {
-    List<Task> findByAssignee_EmailOrderByCreatedAsc(String email, Sort sort);
+    List<Task> findByAssignee_Email(String email, Sort sort);
 }

@@ -43,8 +43,7 @@ public class AddTaskController {
 
         tasksService.addTask(task);
 
-        // TODO перенаправлять в зависимости от источника нажатия кнопки (из какой страницы нажали)
-        return "redirect:/";
+        return "redirect:/tasks";
     }
 
 }

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <html lang="en">
 <head th:replace="fragments/general.html :: common_header(~{::title})">
-    <title>Task tracker</title>
+    <title>All tasks</title>
 </head>
 <body>
 
@@ -13,6 +13,9 @@
 
     <div class="container">
         <br>
+        <a class="btn btn-sm btn-primary" href="#" th:href="@{/add-task}">+ Add task</a>
+        <br>
+        <br>
         <div class="row">
             <table id="my-tasks" class="table table-bordered" style="width: 100%">
                 <thead>
@@ -20,6 +23,8 @@
                     <th>Task</th>
                     <th>Created</th>
                     <th>Author</th>
+                    <th>Assignee</th>
+                    <th>Finished</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -27,6 +32,8 @@
                     <td><a href="#" th:href="@{/tasks/{id}(id=${task.id})}" th:text="${task.shortDescription}">BL-0003 Most first task</a></td>
                     <td th:text="${{task.created}}">29.11.2021</td>
                     <td th:text="${task.authorEmail}">john@doe.com</td>
+                    <td th:text="${task.assigneeEmail}">john@doe.com</td>
+                    <td th:text="${{task.finished}}">29.11.2021</td>
                 </tr>
                 </tbody>
             </table>

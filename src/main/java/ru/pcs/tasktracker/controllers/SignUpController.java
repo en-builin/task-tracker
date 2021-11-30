@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.pcs.tasktracker.dto.SignUpForm;
@@ -40,10 +41,9 @@ public class SignUpController {
     }
 
     @PostMapping
-    public String signUp(@Valid SignUpForm form, BindingResult result, Model model) {
+    public String signUp(@Valid @ModelAttribute("signUpForm") SignUpForm form, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            model.addAttribute("signUpForm", form);
             return "sign-up";
         }
         // TODO: ? обработать исключения из signUpService.signUp()

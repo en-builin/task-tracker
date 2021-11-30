@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.pcs.tasktracker.dto.InviteForm;
@@ -37,10 +38,9 @@ public class UsersController {
     }
 
     @PostMapping()
-    public String invite(Authentication authentication, @Valid InviteForm inviteform, BindingResult result, Model model) {
+    public String invite(Authentication authentication, @Valid @ModelAttribute("inviteForm") InviteForm inviteform, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            model.addAttribute("inviteForm", inviteform);
             model.addAttribute("currentUser", authentication.getName());
             model.addAttribute("users", usersService.getAllUsers());
             return "users";

@@ -1,4 +1,4 @@
-package ru.pcs.tasktracker.security.details;
+package ru.pcs.tasktracker.config.security.details;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

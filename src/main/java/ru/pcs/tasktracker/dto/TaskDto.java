@@ -27,6 +27,9 @@ public class TaskDto {
     private String shortDescription;
     private String fullDescription;
 
+//    private User author;
+//    private User assignee;
+//
     // TODO ? Правильно ли я здесь сделал, что в DTO использовал строковые ID, а в service привел к ссылкам?
     // так сделал для того, чтобы в контроллере не получать из базы пользователей, а сделать это в сервисе
     private String assigneeEmail;

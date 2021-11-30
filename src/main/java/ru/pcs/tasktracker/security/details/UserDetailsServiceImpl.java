@@ -1,4 +1,4 @@
-package ru.pcs.tasktracker.config.security.details;
+package ru.pcs.tasktracker.security.details;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head th:replace="fragments/general.html :: common_header(~{::title})">
+    <title>Projects</title>
+</head>
+<body>
+
+<div th:replace="fragments/general.html :: svg-fr"></div>
+<main>
+
+    <div th:replace="fragments/general.html :: sidebar-fr"></div>
+
+        <div class="container">
+            <br>
+            <div class="row">
+                <form class="form-inline" action="#" th:action="@{/projects}" th:object="${projectDto}" method="post">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-auto form-floating">
+                            <h6>Add new project</h6>
+                        </div>
+                        <div class="col-auto">
+                            <input type="text" class="form-control form-control-sm" th:field="*{title}" name="name" placeholder="Project title">
+                            <span class="has-error" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                        </div>
+                        <div class="col-auto">
+                            <input type="text" class="form-control form-control-sm" th:field="*{rate}" name="email" placeholder="Hourly rate">
+                            <span class="has-error" th:if="${#fields.hasErrors('rate')}" th:errors="*{rate}"></span>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-sm btn-primary" type="submit">Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <br>
+            <div class="row">
+                <table id="projects" class="table table-bordered" style="width: 100%">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Hourly rate</th>
+                        <!--/*-->
+                        <th>Action</th>
+                        <!--*/-->
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="project : ${projects}">
+                        <td th:text="${project.title}">Project title</td>
+                        <td th:text="${project.rate}">1500.00</td>
+                        <!--/*-->
+                        <td>
+                            <form action="#" th:action="@{/projects}" method="POST">
+                                <input type="hidden" name="action" value="delete">
+                                <input type="hidden" name="id" th:value="${project.id}">
+                                <button class="btn btn-sm btn-danger" type="submit">Delete</button>
+                            </form>
+                        </td>
+                        <!--*/-->
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+</main>
+
+</body>
+
+</html>

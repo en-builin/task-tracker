@@ -25,7 +25,7 @@ public class IndexController {
     @GetMapping
     public String getIndexPage(Authentication authentication, Model model) {
         model.addAttribute("currentUser", usersService.getUserNameByEmail(authentication.getName()));
-        model.addAttribute("tasks", tasksService.getTasksByAssignee(authentication.getName()));
+        model.addAttribute("tasks", tasksService.getCurrentTasksByAssignee(authentication.getName()));
         return "index";
     }
 }

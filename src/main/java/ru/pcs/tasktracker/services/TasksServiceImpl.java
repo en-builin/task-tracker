@@ -1,13 +1,14 @@
 package ru.pcs.tasktracker.services;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import ru.pcs.tasktracker.dto.TaskDto;
 import ru.pcs.tasktracker.model.Task;
+import ru.pcs.tasktracker.model.User;
 import ru.pcs.tasktracker.repositories.TasksRepository;
 
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,15 +21,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TasksServiceImpl implements TasksService {
 
-    @Autowired
-    private TasksRepository tasksRepository;
+    private final TasksRepository tasksRepository;
 
-    @Autowired
-    private UsersService usersService;
+    private final UsersService usersService;
 
     @Override
-    public List<TaskDto> getTasksByAssignee(String email) {
-        return tasksRepository.findByAssignee_Email(email, Sort.by(Sort.Direction.DESC, "created"))
+    public List<TaskDto> getCurrentTasksByAssignee(String email) {
+        return tasksRepository.findByAssignee_EmailAndFinishedIsNull(email, Sort.by(Sort.Direction.DESC, "created"))
                 .stream().map(TaskDto::from).collect(Collectors.toList());
     }
 
@@ -45,8 +44,40 @@ public class TasksServiceImpl implements TasksService {
                 .created(new Timestamp(System.currentTimeMillis()))
                 .fullDescription(taskDto.getFullDescription())
                 .shortDescription(taskDto.getShortDescription())
+                .project(taskDto.getProject())
+                .hours(BigDecimal.ZERO)
                 .build();
 
         tasksRepository.save(task);
+    }
+
+    @Override
+    public TaskDto getTaskById(Long id) {
+        return TaskDto.from(tasksRepository.getById(id));
+    }
+
+    @Override
+    public void save(TaskDto taskDto) {
+
+        Task task = tasksRepository.getById(taskDto.getId());
+
+        task.setAssignee(usersService.getUserByEmail(taskDto.getAssigneeEmail()));
+        task.setProject(taskDto.getProject());
+        task.setShortDescription(taskDto.getShortDescription());
+        task.setFullDescription(taskDto.getFullDescription());
+        task.setHours(taskDto.getHours());
+
+        if (taskDto.getIsFinished() && task.getFinished() == null) {
+            task.setFinished(new Timestamp(System.currentTimeMillis()));
+        }
+
+        tasksRepository.save(task);
+    }
+
+    @Override
+    public Boolean isModifyAllowed(TaskDto taskDto, String email) {
+        Task task = tasksRepository.getById(taskDto.getId());
+        User userByEmail = usersService.getUserByEmail(email);
+        return (task.getAuthor().equals(userByEmail) || task.getAssignee().equals(userByEmail));
     }
 }

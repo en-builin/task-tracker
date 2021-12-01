@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 /**
@@ -24,18 +25,21 @@ public class Task {
     @Id
     private Long id;
 
+    @ManyToOne @JoinColumn(name = "project_id")
+    private Project project;
+
     private String shortDescription;
     @Column(length = 1024)
     private String fullDescription;
 
-    @ManyToOne
-    @JoinColumn(name = "author_email")
+    @ManyToOne @JoinColumn(name = "author_email")
     private User author;
 
-    @ManyToOne
-    @JoinColumn(name = "assignee_email")
+    @ManyToOne @JoinColumn(name = "assignee_email")
     private User assignee;
 
     private Timestamp created;
     private Timestamp finished;
+
+    private BigDecimal hours;
 }

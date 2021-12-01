@@ -5,9 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+import ru.pcs.tasktracker.model.Project;
 import ru.pcs.tasktracker.model.Task;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PositiveOrZero;
+import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +28,8 @@ public class TaskDto {
 
     private Long id;
 
+    private Project project;
+
     @NotBlank
     private String shortDescription;
     private String fullDescription;
@@ -33,24 +39,34 @@ public class TaskDto {
 //
     // TODO ? Правильно ли я здесь сделал, что в DTO использовал строковые ID, а в service привел к ссылкам?
     // так сделал для того, чтобы в контроллере не получать из базы пользователей, а сделать это в сервисе
+    @NotBlank
     private String assigneeEmail;
     private String authorEmail;
 
-    @DateTimeFormat(pattern="dd-MM-YYYY HH:mm")
+    @DateTimeFormat(pattern="dd.MM.YYYY HH:mm")
     private Timestamp created;
 
-    @DateTimeFormat(pattern="dd-MM-YYYY HH:mm")
+    @DateTimeFormat(pattern="dd.MM.YYYY HH:mm")
     private Timestamp finished;
+
+    private Boolean isFinished;
+
+    @PositiveOrZero
+    @NumberFormat(pattern = "#.##")
+    private BigDecimal hours;
 
     public static TaskDto from(Task task) {
         return TaskDto.builder()
                 .id(task.getId())
+                .project(task.getProject())
                 .shortDescription(task.getShortDescription())
                 .fullDescription(task.getFullDescription())
                 .authorEmail(task.getAuthor().getEmail())
                 .assigneeEmail(task.getAssignee().getEmail())
                 .created(task.getCreated())
                 .finished(task.getFinished())
+                .isFinished(task.getFinished() != null)
+                .hours(task.getHours())
                 .build();
     }
 

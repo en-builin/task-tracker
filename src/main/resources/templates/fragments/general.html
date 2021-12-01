@@ -101,14 +101,12 @@
                     All tasks
                 </a>
             </li>
-            <!--/*-->
-            <li>
+            <li sec:authorize="hasAuthority('ADMIN')">
                 <a th:href="@{/projects}" href="#" class="nav-link link-dark">
                     <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
                     Projects
                 </a>
             </li>
-            <!--*/-->
             <!--/*-->
             <li>
                 <a th:href="@{/reports}" href="#" class="nav-link link-dark">

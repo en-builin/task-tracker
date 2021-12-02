@@ -19,14 +19,12 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Project {
+
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     @Id
     private Long id;
-
     private String title;
-
     private BigDecimal rate;
-
     private Boolean archived;
 }

@@ -19,7 +19,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UsersServiceImpl implements UsersService {
 
-    public class UserNotFoundException extends RuntimeException {}
+    public static class UserNotFoundException extends RuntimeException {}
 
     private final UsersRepository usersRepository;
 

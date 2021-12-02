@@ -31,6 +31,5 @@ public class ProjectsServiceImpl implements ProjectsService {
                 .build();
 
         projectsRepository.save(project);
-
     }
 }

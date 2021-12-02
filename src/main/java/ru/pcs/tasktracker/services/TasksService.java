@@ -9,6 +9,7 @@ import java.util.List;
  * Created on 29.11.2021 in project task-tracker
  */
 public interface TasksService {
+
     List<TaskDto> getCurrentTasksByAssignee(String name);
 
     List<TaskDto> getAllTasks();

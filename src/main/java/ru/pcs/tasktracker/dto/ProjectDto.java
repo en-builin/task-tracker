@@ -25,14 +25,11 @@ import java.util.stream.Collectors;
 public class ProjectDto {
 
     private Long id;
-
     @NotBlank
     private String title;
-
     @PositiveOrZero
     @NumberFormat(style = NumberFormat.Style.CURRENCY)
     private BigDecimal rate;
-
     private Boolean archived;
 
     public static ProjectDto from(Project project) {

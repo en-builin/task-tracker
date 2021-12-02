@@ -6,6 +6,6 @@ import ru.pcs.tasktracker.model.User;
 import java.util.List;
 
 public interface UsersRepository extends JpaRepository<User, String> {
-    List<User> findByOrderByNameAsc();
 
+    List<User> findByOrderByNameAsc();
 }

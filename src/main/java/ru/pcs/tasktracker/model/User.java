@@ -32,16 +32,11 @@ public class User implements Serializable {
 
     @Id
     private String email;
-
     @Enumerated(value = EnumType.STRING)
     private Role role;
-
     @Enumerated(value = EnumType.STRING)
     private State state;
-
     private String name;
-
     private String password;
-
     private String inviteToken;
 }

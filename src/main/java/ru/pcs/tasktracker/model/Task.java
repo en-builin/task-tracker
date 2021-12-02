@@ -20,26 +20,24 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Task {
+
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(nullable = false)
     @Id
     private Long id;
-
-    @ManyToOne @JoinColumn(name = "project_id")
+    @ManyToOne
+    @JoinColumn(name = "project_id")
     private Project project;
-
     private String shortDescription;
     @Column(length = 1024)
     private String fullDescription;
-
-    @ManyToOne @JoinColumn(name = "author_email")
+    @ManyToOne
+    @JoinColumn(name = "author_email")
     private User author;
-
-    @ManyToOne @JoinColumn(name = "assignee_email")
+    @ManyToOne
+    @JoinColumn(name = "assignee_email")
     private User assignee;
-
-    private Timestamp created;
-    private Timestamp finished;
-
+    private Timestamp createdAt;
+    private Timestamp finishedAt;
     private BigDecimal hours;
 }

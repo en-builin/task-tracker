@@ -7,5 +7,6 @@ import ru.pcs.tasktracker.dto.SignUpForm;
  * Created on 24.11.2021 in project task-tracker
  */
 public interface SignUpService {
+
     void signUp(SignUpForm form);
 }

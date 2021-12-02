@@ -27,30 +27,18 @@ import java.util.stream.Collectors;
 public class TaskDto {
 
     private Long id;
-
     private Project project;
-
     @NotBlank
     private String shortDescription;
     private String fullDescription;
-
-//    private User author;
-//    private User assignee;
-//
-    // TODO ? Правильно ли я здесь сделал, что в DTO использовал строковые ID, а в service привел к ссылкам?
-    // так сделал для того, чтобы в контроллере не получать из базы пользователей, а сделать это в сервисе
     @NotBlank
     private String assigneeEmail;
     private String authorEmail;
-
     @DateTimeFormat(pattern="dd.MM.YYYY HH:mm")
-    private Timestamp created;
-
+    private Timestamp createdAt;
     @DateTimeFormat(pattern="dd.MM.YYYY HH:mm")
-    private Timestamp finished;
-
-    private Boolean isFinished;
-
+    private Timestamp finishedAt;
+    private Boolean finished;
     @PositiveOrZero
     @NumberFormat(pattern = "#.##")
     private BigDecimal hours;
@@ -63,9 +51,9 @@ public class TaskDto {
                 .fullDescription(task.getFullDescription())
                 .authorEmail(task.getAuthor().getEmail())
                 .assigneeEmail(task.getAssignee().getEmail())
-                .created(task.getCreated())
-                .finished(task.getFinished())
-                .isFinished(task.getFinished() != null)
+                .createdAt(task.getCreatedAt())
+                .finishedAt(task.getFinishedAt())
+                .finished(task.getFinishedAt() != null)
                 .hours(task.getHours())
                 .build();
     }

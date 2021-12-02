@@ -24,7 +24,6 @@ import javax.validation.Valid;
 public class AddTaskController {
 
     private final TasksService tasksService;
-//    private final UsersService usersService;
 
     @GetMapping
     public String getAddTaskForm(Model model) {

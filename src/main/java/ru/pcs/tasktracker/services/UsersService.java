@@ -11,6 +11,7 @@ import java.util.List;
  * Created on 25.11.2021 in project task-tracker
  */
 public interface UsersService {
+
     void invite(InviteForm inviteForm);
 
     List<UserDto> getAllUsers();

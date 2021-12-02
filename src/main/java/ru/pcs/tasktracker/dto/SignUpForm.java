@@ -22,10 +22,8 @@ public class SignUpForm {
     @Email
     @NotBlank
     private String email;
-
     @NotBlank
     private String inviteToken;
-
     @NotBlank
     @ValidPassword
     private String password;

@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 public class TasksServiceImpl implements TasksService {
 
     private final TasksRepository tasksRepository;
-
     private final UsersService usersService;
 
     @Override
@@ -67,8 +66,8 @@ public class TasksServiceImpl implements TasksService {
         task.setFullDescription(taskDto.getFullDescription());
         task.setHours(taskDto.getHours());
 
-        if (taskDto.getIsFinished() && task.getFinished() == null) {
-            task.setFinished(new Timestamp(System.currentTimeMillis()));
+        if (taskDto.getFinished() && task.getFinishedAt() == null) {
+            task.setFinishedAt(new Timestamp(System.currentTimeMillis()));
         }
 
         tasksRepository.save(task);

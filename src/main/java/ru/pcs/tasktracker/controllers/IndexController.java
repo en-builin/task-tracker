@@ -19,7 +19,6 @@ import ru.pcs.tasktracker.services.UsersService;
 public class IndexController {
 
     private final UsersService usersService;
-
     private final TasksService tasksService;
 
     @GetMapping

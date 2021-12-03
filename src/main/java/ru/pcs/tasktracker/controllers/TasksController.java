@@ -34,7 +34,7 @@ public class TasksController {
 
     @GetMapping
     public String getTasksPage(Authentication authentication, Model model) {
-        model.addAttribute("currentUser", usersService.getUserNameByEmail(authentication.getName()));
+        model.addAttribute("currentUser", usersService.getUserByEmail(authentication.getName()));
         model.addAttribute("tasks", tasksService.getAllTasks());
         return "tasks";
     }
@@ -43,6 +43,7 @@ public class TasksController {
     public String getTaskEditPage(Authentication authentication, @PathVariable Long id, Model model) {
         model.addAttribute("taskDto", tasksService.getTaskById(id));
         model.addAttribute("projects", projectsService.getAllProjects());
+        model.addAttribute("users", usersService.getActiveUsers());
         return "task";
     }
 
@@ -65,6 +66,8 @@ public class TasksController {
 
         if (result.hasErrors()) {
             model.addAttribute("taskDto", taskDto);
+            model.addAttribute("users", usersService.getActiveUsers());
+            model.addAttribute("projects", projectsService.getAllProjects());
             return "task";
         }
 

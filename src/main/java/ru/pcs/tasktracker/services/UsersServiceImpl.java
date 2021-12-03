@@ -45,9 +45,8 @@ public class UsersServiceImpl implements UsersService {
         return UserDto.from(usersRepository.findByOrderByNameAsc());
     }
 
-    @Override
-    public String getUserNameByEmail(String email) {
-        return usersRepository.findById(email).map(User::getName).orElseThrow(UserNotFoundException::new);
+    public List<UserDto> getActiveUsers() {
+        return UserDto.from(usersRepository.findByStateIsOrderByNameAsc(User.State.ACTIVE));
     }
 
     @Override

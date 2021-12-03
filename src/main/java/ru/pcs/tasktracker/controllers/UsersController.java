@@ -32,7 +32,7 @@ public class UsersController {
     @GetMapping
     public String getUsersPage(Authentication authentication, Model model) {
         model.addAttribute("inviteForm", new InviteForm());
-        model.addAttribute("currentUser", usersService.getUserNameByEmail(authentication.getName()));
+        model.addAttribute("currentUser", usersService.getUserByEmail(authentication.getName()));
         model.addAttribute("users", usersService.getAllUsers());
         return "users";
     }
@@ -41,7 +41,7 @@ public class UsersController {
     public String invite(Authentication authentication, @Valid @ModelAttribute("inviteForm") InviteForm inviteform, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            model.addAttribute("currentUser", authentication.getName());
+            model.addAttribute("currentUser", usersService.getUserByEmail(authentication.getName()));
             model.addAttribute("users", usersService.getAllUsers());
             return "users";
         }

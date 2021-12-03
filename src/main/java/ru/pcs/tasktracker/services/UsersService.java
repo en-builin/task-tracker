@@ -16,7 +16,7 @@ public interface UsersService {
 
     List<UserDto> getAllUsers();
 
-    String getUserNameByEmail(String email);
+    List<UserDto> getActiveUsers();
 
     User getUserByEmail(String email);
 }

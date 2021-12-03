@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.pcs.tasktracker.dto.TaskDto;
 import ru.pcs.tasktracker.services.ProjectsService;
 import ru.pcs.tasktracker.services.TasksService;
+import ru.pcs.tasktracker.services.UsersService;
 
 import javax.validation.Valid;
 
@@ -26,11 +27,13 @@ public class AddTaskController {
 
     private final TasksService tasksService;
     private final ProjectsService projectsService;
+    private final UsersService usersService;
 
     @GetMapping
     public String getAddTaskForm(Model model) {
         model.addAttribute("task", new TaskDto());
         model.addAttribute("projects", projectsService.getAllProjects());
+        model.addAttribute("users", usersService.getActiveUsers());
         return "add-task";
     }
 
@@ -38,10 +41,12 @@ public class AddTaskController {
     public String addTask(Authentication authentication, @Valid @ModelAttribute("task") TaskDto task, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
+            model.addAttribute("projects", projectsService.getAllProjects());
+            model.addAttribute("users", usersService.getActiveUsers());
             return "add-task";
         }
 
-        task.setAuthorEmail(authentication.getName());
+        task.setAuthor(usersService.getUserByEmail(authentication.getName()));
 
         tasksService.addTask(task);
 

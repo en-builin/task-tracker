@@ -25,8 +25,8 @@ public class TasksServiceImpl implements TasksService {
     private final UsersService usersService;
 
     @Override
-    public List<TaskDto> getCurrentTasksByAssignee(String email) {
-        return tasksRepository.findByAssignee_EmailAndFinishedAtIsNull(email, Sort.by(Sort.Direction.DESC, "createdAt"))
+    public List<TaskDto> getCurrentTasksByAssignee(User user) {
+        return tasksRepository.findByAssigneeAndFinishedAtIsNull(user, Sort.by(Sort.Direction.DESC, "createdAt"))
                 .stream().map(TaskDto::from).collect(Collectors.toList());
     }
 
@@ -38,8 +38,8 @@ public class TasksServiceImpl implements TasksService {
     @Override
     public void addTask(TaskDto taskDto) {
         Task task = Task.builder()
-                .assignee(usersService.getUserByEmail(taskDto.getAssigneeEmail()))
-                .author(usersService.getUserByEmail(taskDto.getAuthorEmail()))
+                .assignee(taskDto.getAssignee())
+                .author(taskDto.getAuthor())
                 .createdAt(new Timestamp(System.currentTimeMillis()))
                 .fullDescription(taskDto.getFullDescription())
                 .shortDescription(taskDto.getShortDescription())
@@ -60,7 +60,7 @@ public class TasksServiceImpl implements TasksService {
 
         Task task = tasksRepository.getById(taskDto.getId());
 
-        task.setAssignee(usersService.getUserByEmail(taskDto.getAssigneeEmail()));
+        task.setAssignee(taskDto.getAssignee());
         task.setProject(taskDto.getProject());
         task.setShortDescription(taskDto.getShortDescription());
         task.setFullDescription(taskDto.getFullDescription());

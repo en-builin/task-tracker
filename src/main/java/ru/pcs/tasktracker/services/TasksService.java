@@ -1,6 +1,7 @@
 package ru.pcs.tasktracker.services;
 
 import ru.pcs.tasktracker.dto.TaskDto;
+import ru.pcs.tasktracker.model.User;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  */
 public interface TasksService {
 
-    List<TaskDto> getCurrentTasksByAssignee(String name);
+    List<TaskDto> getCurrentTasksByAssignee(User user);
 
     List<TaskDto> getAllTasks();
 

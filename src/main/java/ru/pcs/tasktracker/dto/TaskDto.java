@@ -8,8 +8,10 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 import ru.pcs.tasktracker.model.Project;
 import ru.pcs.tasktracker.model.Task;
+import ru.pcs.tasktracker.model.User;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
@@ -27,13 +29,14 @@ import java.util.stream.Collectors;
 public class TaskDto {
 
     private Long id;
+    @NotNull
     private Project project;
     @NotBlank
     private String shortDescription;
     private String fullDescription;
-    @NotBlank
-    private String assigneeEmail;
-    private String authorEmail;
+    @NotNull
+    private User assignee;
+    private User author;
     @DateTimeFormat(pattern="dd.MM.YYYY HH:mm")
     private Timestamp createdAt;
     @DateTimeFormat(pattern="dd.MM.YYYY HH:mm")
@@ -49,8 +52,8 @@ public class TaskDto {
                 .project(task.getProject())
                 .shortDescription(task.getShortDescription())
                 .fullDescription(task.getFullDescription())
-                .authorEmail(task.getAuthor().getEmail())
-                .assigneeEmail(task.getAssignee().getEmail())
+                .author(task.getAuthor())
+                .assignee(task.getAssignee())
                 .createdAt(task.getCreatedAt())
                 .finishedAt(task.getFinishedAt())
                 .finished(task.getFinishedAt() != null)

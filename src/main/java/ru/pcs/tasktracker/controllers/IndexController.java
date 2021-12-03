@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.pcs.tasktracker.model.User;
 import ru.pcs.tasktracker.services.TasksService;
 import ru.pcs.tasktracker.services.UsersService;
 
@@ -23,8 +24,9 @@ public class IndexController {
 
     @GetMapping
     public String getIndexPage(Authentication authentication, Model model) {
-        model.addAttribute("currentUser", usersService.getUserNameByEmail(authentication.getName()));
-        model.addAttribute("tasks", tasksService.getCurrentTasksByAssignee(authentication.getName()));
+        User currentUser = usersService.getUserByEmail(authentication.getName());
+        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("tasks", tasksService.getCurrentTasksByAssignee(currentUser));
         return "index";
     }
 }

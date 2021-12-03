@@ -27,9 +27,9 @@
                 <tbody>
                 <tr th:each="task : ${tasks}">
                     <td th:text="${task?.project?.title}">Google</td>
-                    <td><a href="#" th:href="@{/tasks/{id}(id=${task.id})}" th:text="${task.shortDescription}">BL-0003 Most first task</a></td>
+                    <td><a href="#" th:href="@{/tasks/{id}(id=${task.id},from='index')}" th:text="${task.shortDescription}">BL-0003 Most first task</a></td>
                     <td th:text="${{task.createdAt}}">29.11.2021</td>
-                    <td th:text="${task.authorEmail}">john@doe.com</td>
+                    <td th:text="${task?.author?.name}">John Doe</td>
                     <td th:text="${{task.hours}}">1.00</td>
                 </tr>
                 </tbody>

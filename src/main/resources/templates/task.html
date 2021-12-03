@@ -15,7 +15,9 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2" for="shortDescription">Project:</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" th:field="*{project}" id="project" name="project">
+                            <select class="form-control" th:field="*{project}" id="project" name="project">
+                                <option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.title}"></option>
+                            </select>
                             <span class="has-error" th:if="${#fields.hasErrors('project')}" th:errors="*{project}"></span>
                         </div>
                     </div>

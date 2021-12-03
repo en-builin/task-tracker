@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface TasksRepository extends JpaRepository<Task, Long> {
 
-    // TODO ! проверить как будет работать findByAssigneeAndFinishedIsNull
-    List<Task> findByAssignee_EmailAndFinishedIsNull(String email, Sort sort);
+    // TODO ! проверить как будет работать findByAssigneeAndFinishedAtIsNull
+//    List<Task> findByAssignee_EmailAndFinishedAtIsNull(String email, Sort sort);
+    List<Task> findByAssignee_EmailAndFinishedAtIsNull(String email, Sort sort);
 }

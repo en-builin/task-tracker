@@ -26,13 +26,13 @@ public class TasksServiceImpl implements TasksService {
 
     @Override
     public List<TaskDto> getCurrentTasksByAssignee(String email) {
-        return tasksRepository.findByAssignee_EmailAndFinishedIsNull(email, Sort.by(Sort.Direction.DESC, "created"))
+        return tasksRepository.findByAssignee_EmailAndFinishedAtIsNull(email, Sort.by(Sort.Direction.DESC, "createdAt"))
                 .stream().map(TaskDto::from).collect(Collectors.toList());
     }
 
     @Override
     public List<TaskDto> getAllTasks() {
-        return TaskDto.from(tasksRepository.findAll(Sort.by(Sort.Direction.DESC, "created")));
+        return TaskDto.from(tasksRepository.findAll(Sort.by(Sort.Direction.DESC, "createdAt")));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class TasksServiceImpl implements TasksService {
         Task task = Task.builder()
                 .assignee(usersService.getUserByEmail(taskDto.getAssigneeEmail()))
                 .author(usersService.getUserByEmail(taskDto.getAuthorEmail()))
-                .created(new Timestamp(System.currentTimeMillis()))
+                .createdAt(new Timestamp(System.currentTimeMillis()))
                 .fullDescription(taskDto.getFullDescription())
                 .shortDescription(taskDto.getShortDescription())
                 .project(taskDto.getProject())

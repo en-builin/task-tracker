@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.pcs.tasktracker.dto.TaskDto;
+import ru.pcs.tasktracker.services.ProjectsService;
 import ru.pcs.tasktracker.services.TasksService;
 
 import javax.validation.Valid;
@@ -24,10 +25,12 @@ import javax.validation.Valid;
 public class AddTaskController {
 
     private final TasksService tasksService;
+    private final ProjectsService projectsService;
 
     @GetMapping
     public String getAddTaskForm(Model model) {
         model.addAttribute("task", new TaskDto());
+        model.addAttribute("projects", projectsService.getAllProjects());
         return "add-task";
     }
 

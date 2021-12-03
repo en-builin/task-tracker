@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.pcs.tasktracker.dto.TaskDto;
+import ru.pcs.tasktracker.services.ProjectsService;
 import ru.pcs.tasktracker.services.TasksService;
 import ru.pcs.tasktracker.services.UsersService;
 
@@ -29,6 +30,7 @@ public class TasksController {
 
     private final TasksService tasksService;
     private final UsersService usersService;
+    private final ProjectsService projectsService;
 
     @GetMapping
     public String getTasksPage(Authentication authentication, Model model) {
@@ -40,6 +42,7 @@ public class TasksController {
     @GetMapping("/{id}")
     public String getTaskEditPage(Authentication authentication, @PathVariable Long id, Model model) {
         model.addAttribute("taskDto", tasksService.getTaskById(id));
+        model.addAttribute("projects", projectsService.getAllProjects());
         return "task";
     }
 

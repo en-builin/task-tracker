@@ -15,6 +15,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,8 +55,8 @@ public class TaskDto {
                 .fullDescription(task.getFullDescription())
                 .author(task.getAuthor())
                 .assignee(task.getAssignee())
-                .createdAt(task.getCreatedAt())
-                .finishedAt(task.getFinishedAt())
+                .createdAt(getTimestampFromInstant(task.getCreatedAt()))
+                .finishedAt(getTimestampFromInstant(task.getFinishedAt()))
                 .finished(task.getFinishedAt() != null)
                 .hours(task.getHours())
                 .build();
@@ -63,5 +64,9 @@ public class TaskDto {
 
     public static List<TaskDto> from(List<Task> tasks) {
         return tasks.stream().map(TaskDto::from).collect(Collectors.toList());
+    }
+
+    private static Timestamp getTimestampFromInstant(Instant instant) {
+        return (instant == null) ? null : Timestamp.from(instant);
     }
 }

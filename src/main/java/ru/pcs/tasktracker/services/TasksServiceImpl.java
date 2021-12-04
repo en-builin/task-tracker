@@ -9,7 +9,7 @@ import ru.pcs.tasktracker.model.User;
 import ru.pcs.tasktracker.repositories.TasksRepository;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,7 +40,6 @@ public class TasksServiceImpl implements TasksService {
         Task task = Task.builder()
                 .assignee(taskDto.getAssignee())
                 .author(taskDto.getAuthor())
-                .createdAt(new Timestamp(System.currentTimeMillis()))
                 .fullDescription(taskDto.getFullDescription())
                 .shortDescription(taskDto.getShortDescription())
                 .project(taskDto.getProject())
@@ -67,7 +66,7 @@ public class TasksServiceImpl implements TasksService {
         task.setHours(taskDto.getHours());
 
         if (taskDto.getFinished() && task.getFinishedAt() == null) {
-            task.setFinishedAt(new Timestamp(System.currentTimeMillis()));
+            task.setFinishedAt(Instant.now());
         }
 
         tasksRepository.save(task);

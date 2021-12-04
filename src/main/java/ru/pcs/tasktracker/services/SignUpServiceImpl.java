@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.pcs.tasktracker.dto.SignUpForm;
 import ru.pcs.tasktracker.model.User;
 import ru.pcs.tasktracker.repositories.UsersRepository;
+import ru.pcs.tasktracker.resolvers.EmailResolver;
 
 /**
  * @author Evgeniy Builin (en.builin@gmail.com)
@@ -15,13 +16,9 @@ import ru.pcs.tasktracker.repositories.UsersRepository;
 @RequiredArgsConstructor
 public class SignUpServiceImpl implements SignUpService {
 
-//    private final JavaMailSender mailSender;
-//
-//    @Value("${spring.mail.username}")
-//    private String from;
-
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
 
     public class SignUpException extends RuntimeException {
         public SignUpException(String msg) {
@@ -44,20 +41,8 @@ public class SignUpServiceImpl implements SignUpService {
         user.setInviteToken(null);
         user.setState(User.State.ACTIVE);
 
-//        sendMail("<h1>Вы зарегистрированы</h1>", "Регистрация", from, user.getEmail());
-
         usersRepository.save(user);
-    }
 
-//    private void sendMail(String text, String subject, String from, String to) {
-//        MimeMessagePreparator preparator = mimeMessage -> {
-//          MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
-//          messageHelper.setText(text, true);
-//          messageHelper.setTo(to);
-//          messageHelper.setFrom(from);
-//          messageHelper.setSubject(subject);
-//        };
-//
-//        mailSender.send(preparator);
-//    }
+        emailService.sendEmail(user.getEmail(), EmailResolver.REGISTERED_SUBJECT, EmailResolver.REGISTERED_BODY);
+    }
 }

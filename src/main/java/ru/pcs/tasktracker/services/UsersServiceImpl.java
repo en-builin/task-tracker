@@ -6,6 +6,7 @@ import ru.pcs.tasktracker.dto.InviteForm;
 import ru.pcs.tasktracker.dto.UserDto;
 import ru.pcs.tasktracker.model.User;
 import ru.pcs.tasktracker.repositories.UsersRepository;
+import ru.pcs.tasktracker.resolvers.EmailResolver;
 
 import java.util.List;
 import java.util.Locale;
@@ -22,6 +23,7 @@ public class UsersServiceImpl implements UsersService {
     public static class UserNotFoundException extends RuntimeException {}
 
     private final UsersRepository usersRepository;
+    private final EmailService emailService;
 
     @Override
     public void invite(InviteForm inviteForm) {
@@ -36,8 +38,8 @@ public class UsersServiceImpl implements UsersService {
 
         usersRepository.save(user);
 
-        // TODO send email to user with invite token
-
+        emailService.sendEmail(user.getEmail(),
+                EmailResolver.INVITED_SUBJECT, EmailResolver.INVITED_BODY + user.getInviteToken());
     }
 
     @Override

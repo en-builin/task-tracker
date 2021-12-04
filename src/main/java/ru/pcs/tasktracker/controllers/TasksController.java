@@ -5,10 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.pcs.tasktracker.dto.TaskDto;
 import ru.pcs.tasktracker.services.ProjectsService;
 import ru.pcs.tasktracker.services.TasksService;
@@ -17,6 +14,7 @@ import ru.pcs.tasktracker.services.UsersService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -40,10 +38,16 @@ public class TasksController {
     }
 
     @GetMapping("/{id}")
-    public String getTaskEditPage(Authentication authentication, @PathVariable Long id, Model model) {
+    public String getTaskEditPage(Authentication authentication, @PathVariable Long id,
+                                  @RequestParam Map<String, String> params, Model model) {
         model.addAttribute("taskDto", tasksService.getTaskById(id));
         model.addAttribute("projects", projectsService.getAllProjects());
         model.addAttribute("users", usersService.getActiveUsers());
+        if (params.getOrDefault("from", "index").equals("tasks")) {
+            model.addAttribute("returnUrl", "/tasks");
+        } else {
+            model.addAttribute("returnUrl", "/");
+        }
         return "task";
     }
 

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.pcs.tasktracker.dto.InviteForm;
 import ru.pcs.tasktracker.dto.UserDto;
+import ru.pcs.tasktracker.exceptions.UserNotFoundException;
 import ru.pcs.tasktracker.model.User;
 import ru.pcs.tasktracker.repositories.UsersRepository;
 import ru.pcs.tasktracker.resolvers.EmailResolver;
@@ -19,8 +20,6 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class UsersServiceImpl implements UsersService {
-
-    public static class UserNotFoundException extends RuntimeException {}
 
     private final UsersRepository usersRepository;
     private final EmailService emailService;

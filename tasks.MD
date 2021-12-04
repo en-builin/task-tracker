@@ -1,15 +1,13 @@
 даты - Instant @CreateTimestamp @UpdateTimestamp
 
-Exception вынести в отдельный класс в отдельном пакете. public class в public static
-
-application-demo.properties
-H2 in-memory с запуском sql и запуск schema.sql
-
 * отчет по выполненным задачам за период
 
 * возврат из формы редактирования задачи на ту страницу, из которой открыли редактирование задачи (index или tasks)
 
 * блокировка (деактивация пользователей)
+
+* application-demo.properties
+  H2 in-memory с запуском sql и запуск schema.sql
 
 * удаление проекта 
 

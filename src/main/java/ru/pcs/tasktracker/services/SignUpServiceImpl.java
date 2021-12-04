@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.pcs.tasktracker.dto.SignUpForm;
+import ru.pcs.tasktracker.exceptions.SignUpException;
 import ru.pcs.tasktracker.model.User;
 import ru.pcs.tasktracker.repositories.UsersRepository;
 import ru.pcs.tasktracker.resolvers.EmailResolver;
@@ -19,12 +20,6 @@ public class SignUpServiceImpl implements SignUpService {
     private final UsersRepository usersRepository;
     private final PasswordEncoder passwordEncoder;
     private final EmailService emailService;
-
-    public class SignUpException extends RuntimeException {
-        public SignUpException(String msg) {
-            super(msg);
-        }
-    }
 
     @Override
     public void signUp(SignUpForm form) {

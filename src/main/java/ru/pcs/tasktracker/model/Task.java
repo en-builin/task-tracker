@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
+import java.time.Instant;
 
 /**
  * @author Evgeniy Builin (en.builin@gmail.com)
@@ -37,7 +38,8 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "assignee_email")
     private User assignee;
-    private Timestamp createdAt;
-    private Timestamp finishedAt;
+    @CreationTimestamp
+    private Instant createdAt;
+    private Instant finishedAt;
     private BigDecimal hours;
 }

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head th:replace="fragments/general.html :: common_header(~{::title})">
+    <title>Report</title>
+</head>
+<body>
+
+<div th:replace="fragments/general.html :: svg-fr"></div>
+<main>
+
+    <div th:replace="fragments/general.html :: sidebar-fr"></div>
+
+        <div class="container">
+            <br>
+            <div class="row">
+                <form class="form-inline" action="#" th:action="@{/report}" th:object="${reportParams}" method="post">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-auto form-floating">
+                            <h6>Period</h6>
+                        </div>
+                        <div class="col-auto">
+                            <input type="date" class="form-control form-control-sm" th:field="*{dateFrom}" name="dateFrom" th:value="${reportParams.dateFrom}">
+                        </div>
+                        <div class="col-auto">
+                            <input type="date" class="form-control form-control-sm" th:field="*{dateTo}" name="dateTo">
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-sm btn-primary" type="submit">Show</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <br>
+            <div class="row">
+                <table id="report" class="table table-bordered" style="width: 100%">
+                    <thead>
+                    <tr>
+                        <th>Project</th>
+                        <th sec:authorize="hasAuthority('ADMIN')">User</th>
+                        <th>Hours</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="dataRow : ${reportData.get('rows')}">
+                        <td th:text="${dataRow.project_title}">Project title</td>
+                        <td th:text="${dataRow.user_name}" sec:authorize="hasAuthority('ADMIN')">User name</td>
+                        <td th:text="${dataRow.hours}">User name</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <strong>Total hours: <span th:text="${reportData.get('total')}"></span></strong>
+            </div>
+        </div>
+
+</main>
+
+</body>
+
+</html>

@@ -10,4 +10,6 @@ import java.util.List;
 public interface TasksRepository extends JpaRepository<Task, Long> {
 
     List<Task> findByAssigneeAndFinishedAtIsNull(User user, Sort sort);
+
+
 }

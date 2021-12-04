@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import ru.pcs.tasktracker.resolvers.SecurityResolver;
+import ru.pcs.tasktracker.resolvers.WebResolver;
 
 import javax.sql.DataSource;
 
@@ -22,9 +24,6 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 //@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    public static final String URL_SIGN_IN = "/sign-in";
-    public static final String REMEMBER_ME_KEY = "a52378957b9579d56e827ac3e4a0281f";
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -50,32 +49,33 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                        .antMatchers(URL_SIGN_IN, "/sign-up").permitAll()
+                        .antMatchers(WebResolver.URL_SIGN_IN, WebResolver.URL_SIGN_UP).permitAll()
                         .antMatchers("/css/**").permitAll()
                         .antMatchers("/js/**").permitAll()
                         .antMatchers("/", "/add-task", "/tasks/**").authenticated()
+                        .antMatchers("/report").authenticated()
                         .antMatchers("/users", "/projects").hasAuthority("ADMIN")
                         .anyRequest().denyAll()
                         .and()
                 .formLogin()
-                        .loginPage(URL_SIGN_IN)
-                        .loginProcessingUrl(URL_SIGN_IN)
+                        .loginPage(WebResolver.URL_SIGN_IN)
+                        .loginProcessingUrl(WebResolver.URL_SIGN_IN)
                         .defaultSuccessUrl("/", true)
-                        .failureUrl(URL_SIGN_IN + "?error=true")
+                        .failureUrl(WebResolver.URL_SIGN_IN + "?error=true")
                         .usernameParameter("email")
                         .passwordParameter("password")
                         .permitAll()
                         .and()
                 .rememberMe()
-                        .key(REMEMBER_ME_KEY)
-                        .rememberMeParameter("remember-me")
+                        .key(SecurityResolver.REMEMBER_ME_KEY)
+                        .rememberMeParameter(SecurityResolver.REMEMBER_ME_PARAMETER)
                         .alwaysRemember(true)
                         .tokenRepository(tokenRepository())
-                        .tokenValiditySeconds(60 * 60 * 24 * 365)
+                        .tokenValiditySeconds(SecurityResolver.TOKEN_VALIDITY_SECONDS)
                         .and()
                 .logout()
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/sign-out"))
-                        .logoutSuccessUrl(URL_SIGN_IN)
+                        .logoutRequestMatcher(new AntPathRequestMatcher(WebResolver.URL_SIGN_OUT))
+                        .logoutSuccessUrl(WebResolver.URL_SIGN_IN)
                         .deleteCookies("JSESSIONID")
                         .invalidateHttpSession(true)
         ;

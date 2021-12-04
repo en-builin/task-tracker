@@ -20,9 +20,7 @@ public class InviteForm {
 
     @Email
     @NotBlank
-    // TODO @EmailRegistered
     private String email;
     @NotBlank
     private String name;
-//    private Boolean sendNotification;
 }

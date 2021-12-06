@@ -22,7 +22,7 @@ import java.time.Instant;
 @NoArgsConstructor
 public class Task {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     @Id
     private Long id;

@@ -20,7 +20,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 public class Project {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     @Id
     private Long id;

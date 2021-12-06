@@ -15,10 +15,6 @@ import ru.pcs.tasktracker.services.UsersService;
 import javax.validation.Valid;
 
 /**
- * Контроллер регистрации новых пользователей. Контроллер доступен только при установке
- * app.allow-sign-up=true, по умолчанию контроллер отключен. Нужен для первичной регистрации
- * администратора системы. Дальнейшие регистрации происходят только по приглашениям.
- *
  * @author Evgeniy Builin (en.builin@gmail.com)
  * Created on 24.11.2021 in project task-tracker
  */

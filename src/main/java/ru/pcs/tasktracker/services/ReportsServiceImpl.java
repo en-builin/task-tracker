@@ -6,9 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,9 +57,9 @@ public class ReportsServiceImpl implements ReportsService {
         Map<String, Object> result = new HashMap<>();
 
         result.put("rows", jdbcTemplate.queryForList(SQL_SELECT_ALL_DATA,
-                toUTC(from), toUTC(to.plusDays(1))));
+                from, to.plusDays(1)));
         result.put("total", jdbcTemplate.queryForObject(SQL_SELECT_ALL_TOTAL, BigDecimal.class,
-                toUTC(from), toUTC(to.plusDays(1))));
+                from, to.plusDays(1)));
 
         return result;
     }
@@ -72,14 +69,14 @@ public class ReportsServiceImpl implements ReportsService {
         Map<String, Object> result = new HashMap<>();
 
         result.put("rows", jdbcTemplate.queryForList(SQL_SELECT_DATA_BY_USER,
-                toUTC(from), toUTC(to.plusDays(1)), userEmail));
+                from, to.plusDays(1), userEmail));
         result.put("total", jdbcTemplate.queryForObject(SQL_SELECT_TOTAL_BY_USER, BigDecimal.class,
-                toUTC(from), toUTC(to.plusDays(1)), userEmail));
+                from, to.plusDays(1), userEmail));
 
         return result;
     }
 
-    private LocalDateTime toUTC(LocalDate localDate) {
-        return localDate.atStartOfDay().atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
-    }
+//    private LocalDateTime toUTC(LocalDate localDate) {
+//        return localDate.atStartOfDay().atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
+//    }
 }

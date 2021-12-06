@@ -2,6 +2,7 @@ package ru.pcs.tasktracker.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.javamail.MimeMessagePreparator;
@@ -31,6 +32,10 @@ public class EmailServiceImpl implements EmailService {
             messageHelper.setText(htmlBody, true);
         };
 
-        mailSender.send(mimeMessagePreparator);
+        try {
+            mailSender.send(mimeMessagePreparator);
+        } catch (MailException e) {
+            throw new IllegalStateException(e);
+        }
     }
 }

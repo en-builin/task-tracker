@@ -10,6 +10,10 @@
 
 * при инвайте проверять, есть ли пользователь с такой почтой
 
+* Перехват исключений
+  https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc
+  https://www.baeldung.com/spring-thymeleaf-error-messages
+
 ## Глобальные фичи:
 
 * Интернационализация

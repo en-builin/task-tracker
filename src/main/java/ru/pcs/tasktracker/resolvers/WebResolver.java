@@ -10,5 +10,24 @@ public class WebResolver {
     public static final String URL_SIGN_OUT = "/sign-out";
     public static final String URL_SIGN_UP = "/sign-up";
 
+    public static final String[] PERMIT_ALL_URLS = {
+            URL_SIGN_IN,
+            URL_SIGN_UP,
+            "/css/**",
+            "/js/**"
+    };
+
+    public static final String[] AUTHENTICATED_URLS = {
+            "/",
+            "/add-task",
+            "/tasks/**",
+            "/report"
+    };
+
+    public static final String[] ADMIN_URLS = {
+            "/users",
+            "/projects"
+    };
+
     private WebResolver() {}
 }

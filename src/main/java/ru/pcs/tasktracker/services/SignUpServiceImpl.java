@@ -1,6 +1,7 @@
 package ru.pcs.tasktracker.services;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.pcs.tasktracker.dto.SignUpForm;
@@ -9,12 +10,15 @@ import ru.pcs.tasktracker.model.User;
 import ru.pcs.tasktracker.repositories.UsersRepository;
 import ru.pcs.tasktracker.resolvers.EmailResolver;
 
+import java.util.Optional;
+
 /**
  * @author Evgeniy Builin (en.builin@gmail.com)
  * Created on 24.11.2021 in project task-tracker
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class SignUpServiceImpl implements SignUpService {
 
     private final UsersRepository usersRepository;
@@ -24,11 +28,18 @@ public class SignUpServiceImpl implements SignUpService {
     @Override
     public void signUp(SignUpForm form) {
 
-        User user = usersRepository.findById(form.getEmail())
-                .orElseThrow(
-                        () -> new SignUpException("User not found!"));
+        User user;
+
+        Optional<User> userOptional = usersRepository.findById(form.getEmail());
+        if (userOptional.isEmpty()) {
+            log.warn("Attempt to sign up with wrong email [Email:{}; Token:{}]", form.getEmail(), form.getInviteToken());
+            throw new SignUpException("User not found!");
+        } else {
+            user = userOptional.get();
+        }
 
         if (user.getInviteToken() == null || !user.getInviteToken().equals(form.getInviteToken())) {
+            log.warn("Attempt to sign up with wrong token [Email:{}; Token:{}]", form.getEmail(), form.getInviteToken());
             throw new SignUpException("Wrong invite token!");
         }
 

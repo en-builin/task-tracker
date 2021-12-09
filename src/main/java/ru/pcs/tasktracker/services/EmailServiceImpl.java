@@ -1,6 +1,7 @@
 package ru.pcs.tasktracker.services;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -15,6 +16,7 @@ import ru.pcs.tasktracker.resolvers.EmailResolver;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class EmailServiceImpl implements EmailService {
 
     private final JavaMailSender mailSender;
@@ -36,6 +38,7 @@ public class EmailServiceImpl implements EmailService {
         try {
             mailSender.send(mimeMessagePreparator);
         } catch (MailException e) {
+            log.error("Unsuccessful attempt to send mail.", e);
             throw new IllegalStateException(e);
         }
     }

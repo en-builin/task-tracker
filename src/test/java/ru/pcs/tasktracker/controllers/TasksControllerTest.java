@@ -14,12 +14,14 @@ import ru.pcs.tasktracker.dto.TaskDto;
 import ru.pcs.tasktracker.dto.UserDto;
 import ru.pcs.tasktracker.model.Project;
 import ru.pcs.tasktracker.model.User;
+import ru.pcs.tasktracker.repositories.UsersRepository;
 import ru.pcs.tasktracker.services.ProjectsService;
 import ru.pcs.tasktracker.services.TasksService;
 import ru.pcs.tasktracker.services.UsersService;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -47,6 +49,8 @@ class TasksControllerTest {
     private TasksService tasksService;
     @MockBean
     private ProjectsService projectsService;
+    @MockBean
+    private UsersRepository usersRepository;
 
     @BeforeEach
     void setUp() {
@@ -65,6 +69,8 @@ class TasksControllerTest {
 
         // TODO
         when(tasksService.isModifyAllowed(userTask, "user@company.com")).thenReturn(true);
+        when(usersRepository.getById("user@company.com")).thenReturn(user);
+        when(usersRepository.findById("user@company.com")).thenReturn(Optional.of(user));
     }
 
     private List<ProjectDto> getTestProjects() {

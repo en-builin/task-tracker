@@ -74,8 +74,10 @@ public class TasksServiceImpl implements TasksService {
 
     @Override
     public Boolean isModifyAllowed(TaskDto taskDto, String email) {
+
         Task task = tasksRepository.getById(taskDto.getId());
         User userByEmail = usersService.getUserByEmail(email);
+
         return (task.getAuthor().equals(userByEmail) || task.getAssignee().equals(userByEmail));
     }
 }

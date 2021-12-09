@@ -44,7 +44,6 @@ public class SignUpController {
             return "sign-up";
         }
 
-        // TODO: ? обработать исключения из signUpService.signUp()
         signUpService.signUp(form);
         return "redirect:/sign-in";
     }

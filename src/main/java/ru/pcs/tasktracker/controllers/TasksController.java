@@ -32,14 +32,17 @@ public class TasksController {
 
     @GetMapping
     public String getTasksPage(Authentication authentication, Model model) {
+
         model.addAttribute("currentUser", usersService.getUserByEmail(authentication.getName()));
         model.addAttribute("tasks", tasksService.getAllTasks());
+
         return "tasks";
     }
 
     @GetMapping("/{id}")
     public String getTaskEditPage(Authentication authentication, @PathVariable Long id,
                                   @RequestParam Map<String, String> params, Model model) {
+
         model.addAttribute("taskDto", tasksService.getTaskById(id));
         model.addAttribute("projects", projectsService.getAllProjects());
         model.addAttribute("users", usersService.getActiveUsers());
@@ -48,6 +51,7 @@ public class TasksController {
         } else {
             model.addAttribute("returnUrl", "/");
         }
+
         return "task";
     }
 

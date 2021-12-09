@@ -16,13 +16,12 @@ public class PasswordValidator implements ConstraintValidator<ValidPassword, Str
     // At least
     // one lowercase or uppercase character,
     // one digit,
-    // and length between 8 to 20.
+    // and length between 8 and 20.
     private static final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z]|[A-Z]).{8,20}$";
 
     @Override
     public boolean isValid(String password, ConstraintValidatorContext context) {
-        return Pattern.compile(PASSWORD_PATTERN)
-                .matcher(password).matches();
+        return Pattern.compile(PASSWORD_PATTERN).matcher(password).matches();
     }
 
 }

@@ -21,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @DisplayName("PasswordValidator is working when")
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
 class PasswordValidatorTest {
+
     @Autowired
     private PasswordValidator passwordValidator;
 

@@ -62,8 +62,9 @@ class IndexControllerTest {
     @Nested
     @DisplayName("getIndexPage()")
     class GetIndexPage {
+
         @Test
-        public void redirect_to_sign_in_if_not_authenticated() throws Exception {
+        void redirect_to_sign_in_if_not_authenticated() throws Exception {
             mockMvc.perform(get("/")).andDo(print())
                     .andExpect(status().is(302))
                     .andExpect(redirectedUrlPattern("**/sign-in"));
@@ -71,7 +72,7 @@ class IndexControllerTest {
 
         @Test
         @WithUserDetails("user@company.com")
-        public void return_index_view_if_authenticated() throws Exception {
+        void return_index_view_if_authenticated() throws Exception {
 
             User user = TestUsersUtils.getBasicUser();
 
@@ -91,7 +92,7 @@ class IndexControllerTest {
 
         @Test
         @WithUserDetails("user@company.com")
-        public void not_show_restricted_urls_to_users() throws Exception {
+        void not_show_restricted_urls_to_users() throws Exception {
 
             User user = TestUsersUtils.getBasicUser();
 
@@ -110,7 +111,7 @@ class IndexControllerTest {
 
         @Test
         @WithUserDetails("admin@company.com")
-        public void show_restricted_urls_to_admin() throws Exception {
+        void show_restricted_urls_to_admin() throws Exception {
 
             User user = TestUsersUtils.getBasicUser();
 

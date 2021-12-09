@@ -26,6 +26,7 @@ public class UserDto {
     private User.State state;
 
     public static UserDto from(User user) {
+
         return UserDto.builder()
                 .email(user.getEmail())
                 .name(user.getName())

@@ -14,14 +14,12 @@ import ru.pcs.tasktracker.dto.TaskDto;
 import ru.pcs.tasktracker.dto.UserDto;
 import ru.pcs.tasktracker.model.Project;
 import ru.pcs.tasktracker.model.User;
-import ru.pcs.tasktracker.repositories.UsersRepository;
 import ru.pcs.tasktracker.services.ProjectsService;
 import ru.pcs.tasktracker.services.TasksService;
 import ru.pcs.tasktracker.services.UsersService;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.Optional;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
@@ -49,8 +47,6 @@ class TasksControllerTest {
     private TasksService tasksService;
     @MockBean
     private ProjectsService projectsService;
-    @MockBean
-    private UsersRepository usersRepository;
 
     @BeforeEach
     void setUp() {
@@ -67,10 +63,6 @@ class TasksControllerTest {
         when(tasksService.getTaskById(2L)).thenReturn(adminTask);
         when(projectsService.getAllProjects()).thenReturn(getTestProjects());
 
-        // TODO
-        when(tasksService.isModifyAllowed(userTask, "user@company.com")).thenReturn(true);
-        when(usersRepository.getById("user@company.com")).thenReturn(user);
-        when(usersRepository.findById("user@company.com")).thenReturn(Optional.of(user));
     }
 
     private List<ProjectDto> getTestProjects() {
@@ -94,6 +86,7 @@ class TasksControllerTest {
     @Nested
     @DisplayName("getTasksPage()")
     class GetTasksPage {
+
         @Test
         void redirect_to_sign_in_if_not_authenticated() throws Exception {
 
@@ -124,6 +117,7 @@ class TasksControllerTest {
     @Nested
     @DisplayName("getTaskEditPage()")
     class GetTaskEditPage {
+
         @Test
         void redirect_to_sign_in_if_not_authenticated() throws Exception {
 
@@ -174,24 +168,6 @@ class TasksControllerTest {
                             .param("id", "2")
                             .param("shortDescription", "new short description")
                             .param("finished", "true")
-                            .with(csrf()))
-                    .andDo(print())
-                    .andExpect(status().is(400));
-        }
-
-        // TODO - не передает пользователей в DTO
-        @Test
-        @WithUserDetails("user@company.com")
-        void saves_task_from_assigned_user() throws Exception {
-
-            mockMvc.perform(post("/tasks/1")
-                            .param("id", "1")
-                            .param("shortDescription", "Short description")
-                            .param("fullDescription", "Full description")
-                            .param("project", "1")
-                            .param("author", "user@company.com")
-                            .param("assignee", "user@company.com")
-                            .param("hours", "10")
                             .with(csrf()))
                     .andDo(print())
                     .andExpect(status().is(400));

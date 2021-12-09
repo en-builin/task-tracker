@@ -66,6 +66,7 @@ public class ReportsServiceImpl implements ReportsService {
 
     @Override
     public Map<String, Object> getAllData(String userEmail, LocalDate from, LocalDate to) {
+
         Map<String, Object> result = new HashMap<>();
 
         result.put("rows", jdbcTemplate.queryForList(SQL_SELECT_DATA_BY_USER,
@@ -75,8 +76,4 @@ public class ReportsServiceImpl implements ReportsService {
 
         return result;
     }
-
-//    private LocalDateTime toUTC(LocalDate localDate) {
-//        return localDate.atStartOfDay().atZone(ZoneId.systemDefault()).withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
-//    }
 }

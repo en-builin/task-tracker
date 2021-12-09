@@ -48,6 +48,7 @@ public class TaskDto {
     private BigDecimal hours;
 
     public static TaskDto from(Task task) {
+
         return TaskDto.builder()
                 .id(task.getId())
                 .project(task.getProject())

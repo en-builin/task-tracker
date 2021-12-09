@@ -29,9 +29,11 @@ public class ProjectsController {
 
     @GetMapping
     public String getProjectsPage(Authentication authentication, Model model) {
+
         model.addAttribute("projectDto", new ProjectDto());
         model.addAttribute("currentUser", usersService.getUserByEmail(authentication.getName()));
         model.addAttribute("projects", projectsService.getAllProjects());
+
         return "projects";
     }
 
@@ -44,7 +46,9 @@ public class ProjectsController {
             model.addAttribute("projects", projectsService.getAllProjects());
             return "projects";
         }
+
         projectsService.addProject(projectDto);
+
         return "redirect:/projects";
     }
 }

@@ -27,9 +27,11 @@ public class UsersController {
 
     @GetMapping
     public String getUsersPage(Authentication authentication, Model model) {
+
         model.addAttribute("inviteForm", new InviteForm());
         model.addAttribute("currentUser", usersService.getUserByEmail(authentication.getName()));
         model.addAttribute("users", usersService.getAllUsers());
+
         return "users";
     }
 
@@ -41,7 +43,9 @@ public class UsersController {
             model.addAttribute("users", usersService.getAllUsers());
             return "users";
         }
+
         usersService.invite(inviteform);
+
         return "redirect:/users";
     }
 }

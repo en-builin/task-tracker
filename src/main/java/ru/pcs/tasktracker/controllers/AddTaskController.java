@@ -31,9 +31,11 @@ public class AddTaskController {
 
     @GetMapping
     public String getAddTaskForm(Model model) {
+
         model.addAttribute("task", new TaskDto());
         model.addAttribute("projects", projectsService.getAllProjects());
         model.addAttribute("users", usersService.getActiveUsers());
+
         return "add-task";
     }
 

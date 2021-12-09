@@ -24,9 +24,12 @@ public class IndexController {
 
     @GetMapping
     public String getIndexPage(Authentication authentication, Model model) {
+
         User currentUser = usersService.getUserByEmail(authentication.getName());
+
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("tasks", tasksService.getCurrentTasksByAssignee(currentUser));
+
         return "index";
     }
 }

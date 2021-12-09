@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ValidPassword {
 
-    String message() default "Should be 8-20 charachers, includes letters and digits";
+    String message() default "Should be 8-20 characters, includes letters and digits";
 
     Class<?>[] groups() default {};
 

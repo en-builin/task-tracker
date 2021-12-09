@@ -33,6 +33,7 @@ public class ProjectDto {
     private Boolean archived;
 
     public static ProjectDto from(Project project) {
+
         return ProjectDto.builder()
                 .id(project.getId())
                 .title(project.getTitle())
@@ -42,6 +43,7 @@ public class ProjectDto {
     }
 
     public static List<ProjectDto> from(List<Project> projects) {
+
         if (projects == null) {
             return Collections.emptyList();
         } else {

@@ -24,6 +24,7 @@ public class EmailServiceImpl implements EmailService {
 
     @Override
     public void sendEmail(String receiverEmail, String subject, String htmlBody) {
+
         MimeMessagePreparator mimeMessagePreparator = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
             messageHelper.setFrom(senderEmail, EmailResolver.SENDER_NAME);

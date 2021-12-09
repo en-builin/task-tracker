@@ -51,6 +51,7 @@ public class ReportController {
 
         model.addAttribute("reportParams", reportParams);
         model.addAttribute("currentUser", usersService.getUserByEmail(authentication.getName()));
+
         if (authentication.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))) {
             model.addAttribute("reportData", reportsService.getAllData(
                     reportParams.getDateFrom(), reportParams.getDateTo()));

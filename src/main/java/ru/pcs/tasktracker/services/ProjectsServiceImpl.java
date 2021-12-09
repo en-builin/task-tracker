@@ -25,6 +25,7 @@ public class ProjectsServiceImpl implements ProjectsService {
 
     @Override
     public void addProject(ProjectDto projectDto) {
+
         Project project = Project.builder()
                 .title(projectDto.getTitle())
                 .rate(projectDto.getRate())

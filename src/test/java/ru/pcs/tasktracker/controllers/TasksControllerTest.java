@@ -1,10 +1,12 @@
 package ru.pcs.tasktracker.controllers;
 
+import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.pcs.tasktracker.SpringSecurityWebAuxTestConfig;
@@ -23,6 +25,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+import static io.restassured.module.mockmvc.RestAssuredMockMvc.with;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -182,19 +185,30 @@ class TasksControllerTest {
         // TODO - не передает пользователей в DTO
         @Test
         @WithUserDetails("user@company.com")
+        @WithMockUser(username = "user@company.com")
         void saves_task_from_assigned_user() throws Exception {
 
-            mockMvc.perform(post("/tasks/1")
-                            .param("id", "1")
-                            .param("shortDescription", "Short description")
-                            .param("fullDescription", "Full description")
-                            .param("project", "1")
-                            .param("author", "user@company.com")
-                            .param("assignee", "user@company.com")
-                            .param("hours", "10")
-                            .with(csrf()))
-                    .andDo(print())
-                    .andExpect(status().is(400));
+            RestAssuredMockMvc.mockMvc(mockMvc);
+            RestAssuredMockMvc.postProcessors(csrf().asHeader());
+
+            User user = TestUsersUtils.getBasicUser();
+            TaskDto userTask = getTaskDto(user, 1L);
+
+            with().body(userTask).and().when()
+                    .post("/tasks/1")
+                    .then()
+                    .statusCode(200);
+//            mockMvc.perform(post("/tasks/1")
+//                            .param("id", "1")
+//                            .param("shortDescription", "Short description")
+//                            .param("fullDescription", "Full description")
+//                            .param("project", "1")
+//                            .param("author", "user@company.com")
+//                            .param("assignee", "user@company.com")
+//                            .param("hours", "10")
+//                            .with(csrf()))
+//                    .andDo(print())
+//                    .andExpect(status().is(400));
         }
     }
 }

@@ -47,14 +47,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                        .antMatchers(WebResolver.URL_SIGN_IN, WebResolver.URL_SIGN_UP).permitAll()
-                        .antMatchers("/css/**").permitAll()
-                        .antMatchers("/js/**").permitAll()
-                        .antMatchers("/", "/add-task", "/tasks/**").authenticated()
-                        .antMatchers("/report").authenticated()
-                        .antMatchers("/users", "/projects").hasAuthority("ADMIN")
+                http
+                        .authorizeRequests()
+                        .antMatchers(WebResolver.PERMIT_ALL_URLS).permitAll()
+                        .antMatchers(WebResolver.AUTHENTICATED_URLS).authenticated()
+                        .antMatchers(WebResolver.ADMIN_URLS).hasAuthority("ADMIN")
                         .anyRequest().denyAll()
                         .and()
                 .formLogin()

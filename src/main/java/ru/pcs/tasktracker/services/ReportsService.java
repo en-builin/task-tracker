@@ -11,5 +11,5 @@ public interface ReportsService {
 
     Map<String, Object> getAllData(LocalDate from, LocalDate to);
 
-    Map<String, Object> getAllData(String userEmail, LocalDate from, LocalDate to);
+    Map<String, Object> getDataByUser(String userEmail, LocalDate from, LocalDate to);
 }

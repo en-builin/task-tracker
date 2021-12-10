@@ -8,7 +8,7 @@ import ru.pcs.tasktracker.dto.SignUpForm;
 import ru.pcs.tasktracker.exceptions.SignUpException;
 import ru.pcs.tasktracker.model.User;
 import ru.pcs.tasktracker.repositories.UsersRepository;
-import ru.pcs.tasktracker.resolvers.EmailResolver;
+import ru.pcs.tasktracker.utils.EmailUtils;
 
 import java.util.Optional;
 
@@ -49,6 +49,6 @@ public class SignUpServiceImpl implements SignUpService {
 
         usersRepository.save(user);
 
-        emailService.sendEmail(user.getEmail(), EmailResolver.REGISTERED_SUBJECT, EmailResolver.REGISTERED_BODY);
+        emailService.sendEmail(user.getEmail(), EmailUtils.REGISTERED_SUBJECT, EmailUtils.REGISTERED_BODY);
     }
 }

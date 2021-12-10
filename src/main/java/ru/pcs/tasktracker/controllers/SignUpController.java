@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.pcs.tasktracker.dto.SignUpForm;
-import ru.pcs.tasktracker.resolvers.WebResolver;
+import ru.pcs.tasktracker.utils.WebUtils;
 import ru.pcs.tasktracker.services.SignUpService;
 
 import javax.validation.Valid;
@@ -21,7 +21,7 @@ import javax.validation.Valid;
  */
 @RequiredArgsConstructor()
 @Controller
-@RequestMapping(WebResolver.URL_SIGN_UP)
+@RequestMapping(WebUtils.URL_SIGN_UP)
 public class SignUpController {
 
     private final SignUpService signUpService;

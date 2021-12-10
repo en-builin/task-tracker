@@ -40,7 +40,7 @@ public class ReportController {
             model.addAttribute("reportData", reportsService.getAllData(
                     reportParams.getDateFrom(), reportParams.getDateTo()));
         } else {
-            model.addAttribute("reportData", reportsService.getAllData(
+            model.addAttribute("reportData", reportsService.getDataByUser(
                     authentication.getName(), reportParams.getDateFrom(), reportParams.getDateTo()));
         }
         return "report";
@@ -56,7 +56,7 @@ public class ReportController {
             model.addAttribute("reportData", reportsService.getAllData(
                     reportParams.getDateFrom(), reportParams.getDateTo()));
         } else {
-            model.addAttribute("reportData", reportsService.getAllData(
+            model.addAttribute("reportData", reportsService.getDataByUser(
                     authentication.getName(), reportParams.getDateFrom(), reportParams.getDateTo()));
         }
 

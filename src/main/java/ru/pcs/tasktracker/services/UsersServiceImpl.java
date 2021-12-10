@@ -7,7 +7,7 @@ import ru.pcs.tasktracker.dto.UserDto;
 import ru.pcs.tasktracker.exceptions.UserNotFoundException;
 import ru.pcs.tasktracker.model.User;
 import ru.pcs.tasktracker.repositories.UsersRepository;
-import ru.pcs.tasktracker.resolvers.EmailResolver;
+import ru.pcs.tasktracker.utils.EmailUtils;
 
 import java.util.List;
 import java.util.Locale;
@@ -38,7 +38,7 @@ public class UsersServiceImpl implements UsersService {
         usersRepository.save(user);
 
         emailService.sendEmail(user.getEmail(),
-                EmailResolver.INVITED_SUBJECT, EmailResolver.INVITED_BODY + user.getInviteToken());
+                EmailUtils.INVITED_SUBJECT, EmailUtils.INVITED_BODY + user.getInviteToken());
     }
 
     @Override

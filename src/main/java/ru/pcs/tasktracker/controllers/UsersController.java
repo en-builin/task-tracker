@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.pcs.tasktracker.dto.InviteForm;
 import ru.pcs.tasktracker.services.UsersService;
+import ru.pcs.tasktracker.utils.WebUtils;
 
 import javax.validation.Valid;
 
@@ -19,7 +20,7 @@ import javax.validation.Valid;
  * Created on 24.11.2021 in project task-tracker
  */
 @Controller
-@RequestMapping("/users")
+@RequestMapping(WebUtils.URL_USERS)
 @RequiredArgsConstructor()
 public class UsersController {
 
@@ -32,7 +33,7 @@ public class UsersController {
         model.addAttribute("currentUser", usersService.getUserByEmail(authentication.getName()));
         model.addAttribute("users", usersService.getAllUsers());
 
-        return "users";
+        return WebUtils.VIEW_USERS;
     }
 
     @PostMapping()
@@ -41,11 +42,11 @@ public class UsersController {
         if (result.hasErrors()) {
             model.addAttribute("currentUser", usersService.getUserByEmail(authentication.getName()));
             model.addAttribute("users", usersService.getAllUsers());
-            return "users";
+            return WebUtils.VIEW_USERS;
         }
 
         usersService.invite(inviteform);
 
-        return "redirect:/users";
+        return "redirect:" + WebUtils.URL_USERS;
     }
 }

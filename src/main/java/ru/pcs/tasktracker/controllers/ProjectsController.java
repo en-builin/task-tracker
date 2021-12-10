@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.pcs.tasktracker.dto.ProjectDto;
 import ru.pcs.tasktracker.services.ProjectsService;
 import ru.pcs.tasktracker.services.UsersService;
+import ru.pcs.tasktracker.utils.WebUtils;
 
 import javax.validation.Valid;
 
@@ -20,7 +21,7 @@ import javax.validation.Valid;
  * Created on 01.12.2021 in project task-tracker
  */
 @Controller
-@RequestMapping("/projects")
+@RequestMapping(WebUtils.URL_PROJECTS)
 @RequiredArgsConstructor()
 public class ProjectsController {
 
@@ -34,7 +35,7 @@ public class ProjectsController {
         model.addAttribute("currentUser", usersService.getUserByEmail(authentication.getName()));
         model.addAttribute("projects", projectsService.getAllProjects());
 
-        return "projects";
+        return WebUtils.VIEW_PROJECTS;
     }
 
     @PostMapping()
@@ -44,11 +45,11 @@ public class ProjectsController {
         if (result.hasErrors()) {
             model.addAttribute("currentUser", usersService.getUserByEmail(authentication.getName()));
             model.addAttribute("projects", projectsService.getAllProjects());
-            return "projects";
+            return WebUtils.VIEW_PROJECTS;
         }
 
         projectsService.addProject(projectDto);
 
-        return "redirect:/projects";
+        return "redirect:" + WebUtils.URL_PROJECTS;
     }
 }

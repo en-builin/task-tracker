@@ -14,8 +14,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,9 +40,9 @@ public class TaskDto {
     private User assignee;
     private User author;
     @DateTimeFormat(pattern="dd.MM.YYYY HH:mm")
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
     @DateTimeFormat(pattern="dd.MM.YYYY HH:mm")
-    private Timestamp finishedAt;
+    private LocalDateTime finishedAt;
     private Boolean finished;
     @PositiveOrZero
     @NumberFormat(pattern = "#.##")
@@ -56,8 +57,8 @@ public class TaskDto {
                 .fullDescription(task.getFullDescription())
                 .author(task.getAuthor())
                 .assignee(task.getAssignee())
-                .createdAt(getTimestampFromInstant(task.getCreatedAt()))
-                .finishedAt(getTimestampFromInstant(task.getFinishedAt()))
+                .createdAt(getLocalDateTimeOfInstant(task.getCreatedAt()))
+                .finishedAt(getLocalDateTimeOfInstant(task.getFinishedAt()))
                 .finished(task.getFinishedAt() != null)
                 .hours(task.getHours())
                 .build();
@@ -67,7 +68,7 @@ public class TaskDto {
         return tasks.stream().map(TaskDto::from).collect(Collectors.toList());
     }
 
-    private static Timestamp getTimestampFromInstant(Instant instant) {
-        return (instant == null) ? null : Timestamp.from(instant);
+    private static LocalDateTime getLocalDateTimeOfInstant(Instant instant) {
+        return (instant == null) ? null : LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
     }
 }

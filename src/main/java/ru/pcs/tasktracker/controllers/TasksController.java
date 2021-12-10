@@ -10,6 +10,7 @@ import ru.pcs.tasktracker.dto.TaskDto;
 import ru.pcs.tasktracker.services.ProjectsService;
 import ru.pcs.tasktracker.services.TasksService;
 import ru.pcs.tasktracker.services.UsersService;
+import ru.pcs.tasktracker.utils.WebUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +24,7 @@ import java.util.Objects;
  */
 @RequiredArgsConstructor()
 @Controller
-@RequestMapping("/tasks")
+@RequestMapping(WebUtils.URL_TASKS)
 public class TasksController {
 
     private final TasksService tasksService;
@@ -36,7 +37,7 @@ public class TasksController {
         model.addAttribute("currentUser", usersService.getUserByEmail(authentication.getName()));
         model.addAttribute("tasks", tasksService.getAllTasks());
 
-        return "tasks";
+        return WebUtils.VIEW_TASKS;
     }
 
     @GetMapping("/{id}")
@@ -52,7 +53,7 @@ public class TasksController {
             model.addAttribute("returnUrl", "/");
         }
 
-        return "task";
+        return WebUtils.VIEW_TASK;
     }
 
     @PostMapping("/{id}")
@@ -76,7 +77,7 @@ public class TasksController {
             model.addAttribute("taskDto", taskDto);
             model.addAttribute("users", usersService.getActiveUsers());
             model.addAttribute("projects", projectsService.getAllProjects());
-            return "task";
+            return WebUtils.VIEW_TASK;
         }
 
         tasksService.save(taskDto);

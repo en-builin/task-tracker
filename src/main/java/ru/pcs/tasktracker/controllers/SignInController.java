@@ -16,6 +16,6 @@ public class SignInController {
 
     @GetMapping
     public String getSignInPage(Authentication authentication) {
-        return "sign-in";
+        return WebUtils.VIEW_SIGN_IN;
     }
 }

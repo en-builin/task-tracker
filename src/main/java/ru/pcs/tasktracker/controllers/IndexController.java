@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.pcs.tasktracker.model.User;
 import ru.pcs.tasktracker.services.TasksService;
 import ru.pcs.tasktracker.services.UsersService;
+import ru.pcs.tasktracker.utils.WebUtils;
 
 /**
  * @author Evgeniy Builin (en.builin@gmail.com)
@@ -30,6 +31,6 @@ public class IndexController {
         model.addAttribute("currentUser", currentUser);
         model.addAttribute("tasks", tasksService.getCurrentTasksByAssignee(currentUser));
 
-        return "index";
+        return WebUtils.VIEW_INDEX;
     }
 }

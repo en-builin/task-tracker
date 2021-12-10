@@ -34,18 +34,18 @@ public class SignUpController {
         }
 
         model.addAttribute("signUpForm", new SignUpForm());
-        return "sign-up";
+        return WebUtils.VIEW_SIGN_UP;
     }
 
     @PostMapping
     public String signUp(@Valid @ModelAttribute("signUpForm") SignUpForm form, BindingResult result, Model model) {
 
         if (result.hasErrors()) {
-            return "sign-up";
+            return WebUtils.VIEW_SIGN_UP;
         }
 
         signUpService.signUp(form);
-        return "redirect:/sign-in";
+        return "redirect:" + WebUtils.URL_SIGN_IN;
     }
 
 }

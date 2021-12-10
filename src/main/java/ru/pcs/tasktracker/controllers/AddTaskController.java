@@ -13,6 +13,7 @@ import ru.pcs.tasktracker.dto.TaskDto;
 import ru.pcs.tasktracker.services.ProjectsService;
 import ru.pcs.tasktracker.services.TasksService;
 import ru.pcs.tasktracker.services.UsersService;
+import ru.pcs.tasktracker.utils.WebUtils;
 
 import javax.validation.Valid;
 
@@ -22,7 +23,7 @@ import javax.validation.Valid;
  */
 @RequiredArgsConstructor()
 @Controller
-@RequestMapping("/add-task")
+@RequestMapping(WebUtils.URL_ADD_TASK)
 public class AddTaskController {
 
     private final TasksService tasksService;
@@ -36,7 +37,7 @@ public class AddTaskController {
         model.addAttribute("projects", projectsService.getAllProjects());
         model.addAttribute("users", usersService.getActiveUsers());
 
-        return "add-task";
+        return WebUtils.VIEW_ADD_TASK;
     }
 
     @PostMapping
@@ -45,14 +46,14 @@ public class AddTaskController {
         if (result.hasErrors()) {
             model.addAttribute("projects", projectsService.getAllProjects());
             model.addAttribute("users", usersService.getActiveUsers());
-            return "add-task";
+            return WebUtils.VIEW_ADD_TASK;
         }
 
         task.setAuthor(usersService.getUserByEmail(authentication.getName()));
 
         tasksService.addTask(task);
 
-        return "redirect:/tasks";
+        return "redirect:" + WebUtils.URL_TASKS;
     }
 
 }

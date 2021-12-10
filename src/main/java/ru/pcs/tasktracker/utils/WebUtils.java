@@ -6,9 +6,24 @@ package ru.pcs.tasktracker.utils;
  */
 public class WebUtils {
 
+    public static final String URL_ADD_TASK = "/add-task";
+    public static final String URL_PROJECTS = "/projects";
+    public static final String URL_REPORT = "/report";
     public static final String URL_SIGN_IN = "/sign-in";
     public static final String URL_SIGN_OUT = "/sign-out";
     public static final String URL_SIGN_UP = "/sign-up";
+    public static final String URL_TASKS = "/tasks";
+    public static final String URL_USERS = "/users";
+
+    public static final String VIEW_ADD_TASK = "add-task";
+    public static final String VIEW_INDEX = "index";
+    public static final String VIEW_PROJECTS = "projects";
+    public static final String VIEW_REPORT = "report";
+    public static final String VIEW_SIGN_IN = "sign-in";
+    public static final String VIEW_SIGN_UP = "sign-up";
+    public static final String VIEW_TASKS = "tasks";
+    public static final String VIEW_TASK = "task";
+    public static final String VIEW_USERS = "users";
 
     public static final String[] PERMIT_ALL_URLS = {
             URL_SIGN_IN,
@@ -19,14 +34,14 @@ public class WebUtils {
 
     public static final String[] AUTHENTICATED_URLS = {
             "/",
-            "/add-task",
-            "/tasks/**",
-            "/report"
+            URL_ADD_TASK,
+            URL_TASKS + "/**",
+            URL_REPORT
     };
 
     public static final String[] ADMIN_URLS = {
-            "/users",
-            "/projects"
+            URL_USERS,
+            URL_PROJECTS
     };
 
     private WebUtils() {}

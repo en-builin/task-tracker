@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import ru.pcs.tasktracker.config.security.details.UserDetailsImpl;
+import ru.pcs.tasktracker.security.config.UserDetailsImpl;
 
 import java.util.Arrays;
 

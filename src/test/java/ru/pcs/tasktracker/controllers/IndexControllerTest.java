@@ -10,11 +10,11 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.pcs.tasktracker.SpringSecurityWebAuxTestConfig;
 import ru.pcs.tasktracker.TestUsersUtils;
-import ru.pcs.tasktracker.dto.TaskDto;
-import ru.pcs.tasktracker.model.Project;
-import ru.pcs.tasktracker.model.User;
-import ru.pcs.tasktracker.services.TasksService;
-import ru.pcs.tasktracker.services.UsersService;
+import ru.pcs.tasktracker.tasks.TaskDto;
+import ru.pcs.tasktracker.projects.Project;
+import ru.pcs.tasktracker.users.User;
+import ru.pcs.tasktracker.tasks.TasksService;
+import ru.pcs.tasktracker.users.UsersService;
 
 import java.math.BigDecimal;
 import java.util.Collections;

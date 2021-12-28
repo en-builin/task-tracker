@@ -9,9 +9,9 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 import ru.pcs.tasktracker.SpringSecurityWebAuxTestConfig;
 import ru.pcs.tasktracker.TestUsersUtils;
-import ru.pcs.tasktracker.dto.ProjectDto;
-import ru.pcs.tasktracker.services.ProjectsService;
-import ru.pcs.tasktracker.services.UsersService;
+import ru.pcs.tasktracker.projects.ProjectDto;
+import ru.pcs.tasktracker.projects.ProjectsService;
+import ru.pcs.tasktracker.users.UsersService;
 
 import java.util.List;
 

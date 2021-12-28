@@ -1,6 +1,6 @@
 package ru.pcs.tasktracker;
 
-import ru.pcs.tasktracker.model.User;
+import ru.pcs.tasktracker.users.User;
 
 /**
  * @author Evgeniy Builin (en.builin@gmail.com)
